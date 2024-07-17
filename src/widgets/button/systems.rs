@@ -1,6 +1,8 @@
 use bevy::{prelude::*, sprite::Anchor};
 use bevy_lunex::prelude::*;
 
+use crate::resources::CodexSettings;
+
 use super::{
     components::{CustomButton, CustomButtonUi},
     styles::get_button_text_styles,
@@ -9,6 +11,7 @@ use super::{
 pub fn build_button(
     mut commands: Commands,
     assets: Res<AssetServer>,
+    codex_settings: Res<CodexSettings>,
     query: Query<(Entity, &CustomButton), Added<CustomButton>>,
 ) {
     for (entity, button) in &query {
@@ -46,7 +49,7 @@ pub fn build_button(
                         UiText2dBundle {
                             text: Text::from_section(
                                 button.text.to_string(),
-                                get_button_text_styles(&assets),
+                                get_button_text_styles(&assets, &codex_settings),
                             ),
                             ..default()
                         },

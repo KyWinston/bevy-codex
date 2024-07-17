@@ -7,7 +7,7 @@ use loading::LoadingPlugin;
 use main_menu::MainMenuPlugin;
 use pause::PausePlugin;
 use prelude::*;
-use resources::GameTitle;
+use resources::CodexSettings;
 use settings::SettingsUiPlugin;
 use splash::SplashPlugin;
 use systems::{exit, init_ui_cam};
@@ -15,6 +15,8 @@ use widgets::WidgetPlugins;
 
 pub mod prelude {
     use bevy::{prelude::Component, reflect::Reflect, state::state::States};
+
+    use crate::resources::CodexSettings;
 
     #[derive(Default, States, Debug, Reflect, Hash, Eq, PartialEq, Clone)]
     pub enum SimulationState {
@@ -35,7 +37,15 @@ pub mod prelude {
     }
     #[derive(Clone)]
     pub struct UiScreensPlugin {
-        pub title: String,
+        pub settings: CodexSettings,
+    }
+
+    impl Default for UiScreensPlugin {
+        fn default() -> Self {
+            Self {
+                settings: CodexSettings::default(),
+            }
+        }
     }
 }
 
@@ -53,7 +63,7 @@ pub mod widgets;
 
 impl Plugin for UiScreensPlugin {
     fn build(&self, app: &mut App) {
-        app.insert_resource(GameTitle(self.title.clone()))
+        app.insert_resource::<CodexSettings>(self.settings.clone())
             .add_plugins((
                 ThirdPersonCameraPlugin,
                 MainMenuPlugin,

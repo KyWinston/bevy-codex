@@ -2,12 +2,13 @@ use bevy::{color::palettes::css::OLIVE_DRAB, prelude::*};
 use bevy_lunex::prelude::*;
 
 use super::components::{List, ListUi};
-use crate::widgets::button::components::CustomButton;
+use crate::{resources::CodexSettings, widgets::button::components::CustomButton};
 
 pub fn build_list(
     mut commands: Commands,
     query: Query<(Entity, &List), Added<List>>,
     assets: Res<AssetServer>,
+    codex_settings: Res<CodexSettings>,
 ) {
     for (entity, list) in &query {
         commands
@@ -33,7 +34,7 @@ pub fn build_list(
                         CustomButton {
                             link: "Button".to_string(),
                             text: item.to_string(),
-                            texture: assets.load("images/ui/metalPanel_green.png"),
+                            texture: assets.load(codex_settings.button_texture.clone()),
                             color: OLIVE_DRAB.into(),
                         },
                     ));

@@ -1,8 +1,8 @@
 [package]
-name = "bevy-basic-ui"
+name = "bevy-codex"
 version = "0.5.13"
-description = "A small manager for menus and huds"
-repository = "https://github.com/KyleWinston/bevy-ui"
+description = "A manager for menus and huds with the bevy game engine"
+repository = "https://github.com/KyleWinston/bevy-codex"
 license = "MIT OR Apache-2.0"
 edition = "2021"
 publish = true
@@ -13,13 +13,17 @@ keywords = ["bevy", "menus", "ui"]
 [dependencies]
 serde = "1.0.99"
 bevy = { version = "0.14.0", default-features = false, features = [
-    "bevy_core_pipeline",
-    "bevy_sprite",
+    "bevy_asset",
     "bevy_state",
     "bevy_winit",
-    "multi_threaded",
-    "bevy_text",
+    "bevy_render",
+    "bevy_core_pipeline",
+    "bevy_sprite",
+    "bevy_ui",
+    "x11",
     "png",
+    "asset_processor",
+    "accesskit_unix",
 ] }
 bevy-settings = "0.6.0"
 bevy_third_person_camera = "0.1.11"

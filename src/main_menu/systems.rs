@@ -9,7 +9,7 @@ use bevy_lunex::{
 use crate::{
     loading::components::Loading,
     main_menu::components::MainMenuButton,
-    resources::GameTitle,
+    resources::CodexSettings,
     widgets::{
         button::components::{CustomButton, CustomButtonRef},
         panel::components::Panel,
@@ -23,7 +23,7 @@ pub fn build_main_menu(
     asset_server: Res<AssetServer>,
     query: Query<Entity, Added<MainMenu>>,
     window: Query<&Window, With<PrimaryWindow>>,
-    title: Res<GameTitle>,
+    codex_settings: Res<CodexSettings>,
 ) {
     for route_entity in &query {
         if let Ok(resolution) = window.get_single() {
@@ -69,7 +69,7 @@ pub fn build_main_menu(
                                     .pos(Rl((10.0, 10.0)))
                                     .pack::<Base>(),
                                 Panel {
-                                    text: Some(title.0.to_string()),
+                                    text: Some(codex_settings.title.to_string()),
                                     color: BLACK.into(),
                                     content,
                                     ..default()

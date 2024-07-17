@@ -1,6 +1,6 @@
 [package]
 name = "bevy-codex"
-version = "0.5.13"
+version = "0.5.14"
 description = "A manager for menus and huds with the bevy game engine"
 repository = "https://github.com/KyleWinston/bevy-codex"
 license = "MIT OR Apache-2.0"

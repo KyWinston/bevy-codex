@@ -29,4 +29,4 @@ bevy-settings = "0.6.0"
 bevy_third_person_camera = "0.1.11"
 bevy_common_assets = { version = "0.11.0", features = ["toml"] }
 async-executor = "1.12.0"
-bevy_lunex = "0.2.2"
+bevy_lunex = "0.2.3"

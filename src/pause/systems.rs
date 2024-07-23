@@ -27,7 +27,7 @@ pub fn build_pause(
                 .with_children(|route| {
                     route
                         .spawn((
-                            UiTreeBundle::<MainUi>::from(UiTree::new("Pause")),
+                            UiTreeBundle::<MainUi>::from(UiTree::new2d("Pause")),
                             MovableByCamera,
                         ))
                         .with_children(|ui| {

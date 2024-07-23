@@ -34,7 +34,7 @@ pub fn build_main_menu(
                 .with_children(|route| {
                     route
                         .spawn((
-                            UiTreeBundle::<MainUi>::from(UiTree::new("MainMenu")),
+                            UiTreeBundle::<MainUi>::from(UiTree::new2d("MainMenu")),
                             MovableByCamera,
                         ))
                         .with_children(|ui| {

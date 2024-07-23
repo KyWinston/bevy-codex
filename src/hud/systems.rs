@@ -99,7 +99,7 @@ pub fn build_hud(
                     // Spawn the background
                     route
                         .spawn((
-                            UiTreeBundle::<MainUi>::from(UiTree::new("HUD")),
+                            UiTreeBundle::<MainUi>::from(UiTree::new2d("HUD")),
                             UiLayout::window().size(Rl(w_size)).pack::<Base>(),
                             MovableByCamera,
                             UiDisplay,

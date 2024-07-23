@@ -16,7 +16,7 @@ pub fn build_panel(
     for (entity, panel) in &query {
         commands
             .entity(entity)
-            .insert((UiTreeBundle::<PanelUi>::from(UiTree::new("Panel")),))
+            .insert((UiTreeBundle::<PanelUi>::from(UiTree::new2d("Panel")),))
             .with_children(|ui| {
                 let panel_link = UiLink::<PanelUi>::path("Panel");
                 let mut panel_bundle = ui.spawn((

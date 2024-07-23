@@ -13,7 +13,7 @@ pub fn build_list(
     for (entity, list) in &query {
         commands
             .entity(entity)
-            .insert(UiTreeBundle::<ListUi>::from(UiTree::new("List")))
+            .insert(UiTreeBundle::<ListUi>::from(UiTree::new2d("List")))
             .with_children(|ui| {
                 let mut offset = 0.0;
                 let list_link = UiLink::<ListUi>::path("List");

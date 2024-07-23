@@ -27,7 +27,7 @@ pub fn build_loading(
                 .with_children(|route| {
                     route
                         .spawn((
-                            UiTreeBundle::<MainUi>::from(UiTree::new("Loading")),
+                            UiTreeBundle::<MainUi>::from(UiTree::new2d("Loading")),
                             MovableByCamera,
                         ))
                         .with_children(|ui| {

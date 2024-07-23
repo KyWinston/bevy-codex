@@ -22,7 +22,7 @@ pub fn build_splash(
                 // Spawn the master ui tree
                 route
                     .spawn((
-                        UiTreeBundle::<MainUi>::from(UiTree::new("MainMenu")),
+                        UiTreeBundle::<MainUi>::from(UiTree::new2d("MainMenu")),
                         MovableByCamera,
                     ))
                     .with_children(|ui| {

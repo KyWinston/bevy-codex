@@ -3,7 +3,7 @@ use button::ButtonPlugin;
 use list::ListPlugin;
 use panel::PanelPlugin;
 
-// pub mod slider;
+pub mod slider;
 pub mod button;
 pub mod list;
 pub mod panel;

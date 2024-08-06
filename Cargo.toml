@@ -12,15 +12,14 @@ keywords = ["bevy", "menus", "ui"]
 
 [dependencies]
 serde = "1.0.99"
-bevy = { version = "0.14.0", default-features = false, features = [
+#  git = "https://github.com/bevyengine/bevy", branch = "main",
+bevy = { version="0.14.1", default-features = false, features = [
     "bevy_asset",
     "bevy_state",
-    "bevy_winit",
     "bevy_render",
     "bevy_core_pipeline",
-    "bevy_sprite",
-    "bevy_ui",
     "x11",
+    "bevy_ui",
     "png",
     "asset_processor",
     "accesskit_unix",

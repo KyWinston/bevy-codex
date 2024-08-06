@@ -2,6 +2,7 @@ use bevy::prelude::*;
 use bevy_lunex::{UiGenericPlugin, UiPlugin};
 use bevy_third_person_camera::ThirdPersonCameraPlugin;
 use components::Ui3d;
+use events::SelectEvent;
 use hud::HudPlugin;
 use loading::LoadingPlugin;
 use main_menu::MainMenuPlugin;
@@ -50,6 +51,7 @@ pub mod prelude {
 }
 
 pub mod components;
+pub mod events;
 pub mod hud;
 pub mod loading;
 pub mod main_menu;
@@ -64,6 +66,7 @@ pub mod widgets;
 impl Plugin for UiScreensPlugin {
     fn build(&self, app: &mut App) {
         app.insert_resource::<CodexSettings>(self.settings.clone())
+            .add_event::<SelectEvent>()
             .add_plugins((
                 ThirdPersonCameraPlugin,
                 MainMenuPlugin,

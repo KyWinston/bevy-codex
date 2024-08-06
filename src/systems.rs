@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 use bevy_lunex::prelude::*;
 
-use crate::{components::Quit, splash::components::SplashScreen};
+use crate::{components::Quit, events::SelectEvent, splash::components::SplashScreen};
 
 pub fn init_ui_cam(mut commands: Commands) {
     commands.spawn(camera()).with_children(|cam| {
@@ -38,4 +38,10 @@ pub fn camera() -> impl Bundle {
             ..default()
         },
     )
+}
+
+pub fn button_click(mut events: EventReader<UiClickEvent>, mut ev_w:EventWriter<SelectEvent>) {
+    for event in events.read() {
+            ev_w.send(SelectEvent(event.clone()));
+    }
 }

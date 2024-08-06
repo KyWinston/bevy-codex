@@ -10,6 +10,7 @@ use crate::{
     loading::components::Loading,
     main_menu::components::MainMenuButton,
     resources::CodexSettings,
+    settings::components::Settings,
     widgets::{
         button::components::{CustomButton, CustomButtonRef},
         panel::components::Panel,
@@ -95,6 +96,9 @@ pub fn main_menu_button_clicked_system(
                 if button.text == MainMenuButton::NewGame.str() {
                     commands.entity(ent).despawn_recursive();
                     commands.spawn(Loading(Some("Loading...".to_string())));
+                } else if button.text == MainMenuButton::QuitGame.str() {
+                    commands.entity(event.target).despawn_recursive();
+                    commands.spawn(Settings);
                 } else if button.text == MainMenuButton::QuitGame.str() {
                     commands.entity(event.target).despawn_recursive();
                     exit.send(bevy::app::AppExit::Success);

@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 
 #[derive(Component)]
-pub struct SettingsUi;
+pub struct Settings;
 
 #[derive(Component)]
 pub struct ApplyButton;

@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use bevy_mod_picking::events::{Drag, Pointer};
+use bevy_lunex::prelude::{Drag, Pointer};
 
 use crate::settings::resources::SettingsVals;
 

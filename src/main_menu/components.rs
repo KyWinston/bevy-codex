@@ -3,6 +3,9 @@ use bevy::prelude::Component;
 #[derive(Component)]
 pub struct MainMenu;
 
+#[derive(Component, Clone)]
+pub struct MainMenuUi;
+
 // #=====================#
 // #=== INTERACTIVITY ===#
 

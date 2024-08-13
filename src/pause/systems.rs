@@ -2,10 +2,7 @@ use bevy::color::palettes::css::BLACK;
 use bevy::prelude::EventReader;
 use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
-use bevy_lunex::{
-    prelude::{MainUi, Pickable, Rl, UiNodeTreeInitTrait, UiTree},
-    Base, MovableByCamera, PackageLayout, UiClickEvent, UiLayout, UiLink, UiTreeBundle,
-};
+use bevy_lunex::prelude::*;
 
 use crate::widgets::button::components::{CustomButton, CustomButtonRef};
 use crate::widgets::panel::components::Panel;
@@ -27,25 +24,20 @@ pub fn build_pause(
                 .with_children(|route| {
                     route
                         .spawn((
-                            UiTreeBundle::<MainUi>::from(UiTree::new2d("Pause")),
+                            UiTreeBundle::<MainUi>::from(UiTree::new2d("PauseMenu")),
                             MovableByCamera,
                         ))
                         .with_children(|ui| {
-                            let root = UiLink::<MainUi>::path("Root"); // Here we can define the name of the node
+                            let root = UiLink::<MainUi>::path("Root");
                             ui.spawn((
                                 root.clone(),
-                                UiLayout::window_full().size(r_size).pack::<Base>(),
+                                UiLayout::window().size(r_size).pack::<Base>(),
                             ));
-                            ui.spawn((
-                                root.add("Background"),
-                                UiLayout::solid()
-                                    .size(r_size)
-                                    .scaling(bevy_lunex::prelude::Scaling::Fill)
-                                    .pack::<Base>(),
-                                Pickable::IGNORE,
-                            ));
+                            let background = UiLink::<MainUi>::path("Background");
 
-                            let panel: UiLink = root.add("Background/Panel");
+                            ui.spawn((UiLayout::window_full().pack::<Base>(), Pickable::IGNORE));
+
+                            let panel: UiLink = background.add("panel");
 
                             let buttons = [
                                 CustomButtonRef {
@@ -76,6 +68,7 @@ pub fn build_pause(
         }
     }
 }
+
 /// In this system we run our button click logic
 pub fn pause_button_clicked_system(
     mut commands: Commands,

@@ -1,13 +1,19 @@
 use bevy::prelude::*;
 
 #[derive(Component)]
-pub struct Settings;
+pub struct SettingsPg;
+
+#[derive(Component,Clone)]
+pub struct SettingsPgUi;
 
 #[derive(Component)]
 pub struct ApplyButton;
 
 #[derive(Component)]
 pub struct RenderPanel;
+
+#[derive(Component)]
+pub struct SettingsPanel;
 
 // #[derive(Component)]
 // pub struct ControllerPanel;

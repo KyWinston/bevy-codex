@@ -1,4 +1,4 @@
-use bevy::{color::palettes::css::OLIVE_DRAB, prelude::*};
+use bevy::prelude::*;
 use bevy_lunex::prelude::*;
 
 use super::components::{List, ListUi};
@@ -35,7 +35,7 @@ pub fn build_list(
                             link: "Button".to_string(),
                             text: item.to_string(),
                             texture: assets.load(codex_settings.button_texture.clone()),
-                            color: OLIVE_DRAB.into(),
+                            color: codex_settings.button_color.into(),
                         },
                     ));
                     offset += list.gap + list.size;

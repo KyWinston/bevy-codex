@@ -10,6 +10,7 @@ pub struct CustomButton {
     pub texture: Handle<Image>,
     pub color: Color,
 }
+
 #[derive(Component, Clone)]
 pub struct CustomButtonRef {
     pub link: String,

@@ -1,48 +1,48 @@
-use bevy::prelude::*;
+use bevy::{prelude::*, window::PrimaryWindow};
 use bevy_lunex::{
     prelude::{MainUi, Rl, UiNodeTreeInitTrait, UiTree},
     Base, MovableByCamera, PackageLayout, UiImage2dBundle, UiLayout, UiLink, UiTreeBundle,
 };
 
-use crate::{main_menu::components::MainMenu, UiState};
-
 use super::components::{SplashScreen, SplashTimer};
+use crate::{main_menu::components::MainMenu, UiState};
 
 pub fn build_splash(
     mut commands: Commands,
     assets: Res<AssetServer>,
+    window: Query<&Window, With<PrimaryWindow>>,
     query: Query<Entity, Added<SplashScreen>>,
 ) {
     for route_entity in &query {
-        // Spawn the route
-        commands
-            .entity(route_entity)
-            .insert(SpatialBundle::default())
-            .with_children(|route| {
-                // Spawn the master ui tree
-                route
-                    .spawn((
-                        UiTreeBundle::<MainUi>::from(UiTree::new2d("MainMenu")),
-                        MovableByCamera,
-                    ))
-                    .with_children(|ui| {
-                        let root: UiLink<_> = UiLink::<MainUi>::path("Root"); // Here we can define the name of the node
-                        ui.spawn((
-                            root.clone(),                           // Here we add the link
-                            UiLayout::window_full().pack::<Base>(), // This is where we define layout
-                        ));
-
-                        // Spawn the background
-                        ui.spawn((
-                            root.add("Background"), // You can see here that we used existing "root" link to create chained link (same as "Root/Background")
-                            UiLayout::boundary()
-                                .pos1(Rl(40.0))
-                                .pos2(Rl(60.0))
-                                .pack::<Base>(),
-                            UiImage2dBundle::from(assets.load("branding/icon.png")), // We use this bundle to add background image to our node
-                        ));
-                    });
-            });
+        if let Ok(resolution) = window.get_single() {
+            let r_size = (resolution.width(), resolution.height());
+            commands
+                .entity(route_entity)
+                .insert(SpatialBundle::default())
+                .with_children(|route| {
+                    route
+                        .spawn((
+                            UiTreeBundle::<MainUi>::from(UiTree::new2d("MainMenu")),
+                            MovableByCamera,
+                        ))
+                        .with_children(|ui| {
+                            let root = UiLink::<MainUi>::path("Root");
+                            ui.spawn((
+                                root.clone(),
+                                UiLayout::window().size(r_size).pack::<Base>(),
+                            ));
+                            // Spawn the background
+                            ui.spawn((
+                                UiLink::<MainUi>::path("Background"), // You can see here that we used existing "root" link to create chained link (same as "Root/Background")
+                                UiLayout::boundary()
+                                    .pos1(Rl(40.0))
+                                    .pos2(Rl(60.0))
+                                    .pack::<Base>(),
+                                UiImage2dBundle::from(assets.load("branding/icon.png")), // We use this bundle to add background image to our node
+                            ));
+                        });
+                });
+        }
     }
 }
 pub fn count_down(

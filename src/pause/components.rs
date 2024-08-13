@@ -3,6 +3,9 @@ use bevy::prelude::Component;
 #[derive(Component)]
 pub struct Pause;
 
+#[derive(Component, Clone)]
+pub struct PauseUi;
+
 #[derive(Component)]
 pub struct ResumeButton;
 

@@ -9,16 +9,15 @@ pub struct PanelUi;
 pub struct PanelText;
 
 #[derive(Component)]
-pub struct Panel {
-    // pub label: String,
+pub struct Panel<T> {
     pub text: Option<String>,
     pub texture: Option<Handle<Image>>,
     pub color: Color,
     pub text_alignment: Anchor,
-    pub content: Vec<CustomButtonRef>,
+    pub content: Vec<T>,
 }
 
-impl Default for Panel {
+impl Default for Panel<CustomButtonRef> {
     fn default() -> Self {
         Self {
             text: None,

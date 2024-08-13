@@ -114,10 +114,7 @@ pub fn build_hud(
                             ));
                             ui.spawn((
                                 UiLink::<MainUi>::path("Camera/Hud"),
-                                UiLayout::solid()
-                                    .size(Rl(100.0))
-                                    .scaling(Scaling::Fit)
-                                    .pack::<Base>(),
+                                UiLayout::window_full().pack::<Base>(),
                                 Pickable::IGNORE,
                             ));
                         });

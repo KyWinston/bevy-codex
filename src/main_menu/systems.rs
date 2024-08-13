@@ -10,7 +10,7 @@ use crate::{
     loading::components::Loading,
     main_menu::components::MainMenuButton,
     resources::CodexSettings,
-    settings::components::Settings,
+    settings::components::SettingsPg,
     widgets::{
         button::components::{CustomButton, CustomButtonRef},
         panel::components::Panel,
@@ -44,7 +44,7 @@ pub fn build_main_menu(
                                 root.clone(),
                                 UiLayout::window().size(r_size).pack::<Base>(),
                             ));
-                            let background = root.add("Background");
+                            let background = UiLink::<MainUi>::path("Background");
 
                             ui.spawn((
                                 background.clone(),
@@ -96,9 +96,9 @@ pub fn main_menu_button_clicked_system(
                 if button.text == MainMenuButton::NewGame.str() {
                     commands.entity(ent).despawn_recursive();
                     commands.spawn(Loading(Some("Loading...".to_string())));
-                } else if button.text == MainMenuButton::QuitGame.str() {
-                    commands.entity(event.target).despawn_recursive();
-                    commands.spawn(Settings);
+                } else if button.text == MainMenuButton::Settings.str() {
+                    commands.entity(ent).despawn_recursive();
+                    commands.spawn(SettingsPg);
                 } else if button.text == MainMenuButton::QuitGame.str() {
                     commands.entity(event.target).despawn_recursive();
                     exit.send(bevy::app::AppExit::Success);

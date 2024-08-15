@@ -18,53 +18,50 @@ pub fn build_settings(
 
     query: Query<Entity, Added<SettingsPg>>,
 ) {
-        for route_entity in &query {
-            if let Ok(resolution) = window.get_single() {
-                let r_size = (resolution.width(), resolution.height());
-                commands
-                    .entity(route_entity)
-                    .insert(SpatialBundle::default())
-                    .with_children(|route| {
-                        route
-                            .spawn((
-                                UiTreeBundle::<MainUi>::from(UiTree::new2d("MainMenu")),
-                                MovableByCamera,
-                            ))
-                            .with_children(|ui| {
-                                let root = UiLink::<MainUi>::path("Root");
-                                ui.spawn((
-                                    root.clone(),
-                                    UiLayout::window().size(r_size).pack::<Base>(),
-                                ));
-                                let background = UiLink::<SettingsPgUi>::path("Background");
-                                ui.spawn((
-                                    background.clone(),
-                                    UiLayout::window_full().pack::<Base>(),
-                                    Pickable::IGNORE,
-                                    UiImage2dBundle::from(
-                                        asset_server.load("Level_base_diffuse.png"),
-                                    ),
-                                ));
-                                ui.spawn((
-                                    background.add("Panel"),
-                                    UiLayout::window()
-                                        .size(Rl((40.0, 80.0)))
-                                        .pos(Rl((10.0, 10.0)))
-                                        .pack::<Base>(),
-                                    Panel {
-                                        text: Some("Settings".to_string()),
-                                        color: BLACK.into(),
-                                        ..default()
-                                    },
-                                    SettingsPanel,
-                                    Pickable::IGNORE,
-                                ));
-                            });
-                    });
-            }
+    for route_entity in &query {
+        if let Ok(resolution) = window.get_single() {
+            let r_size = (resolution.width(), resolution.height());
+            commands
+                .entity(route_entity)
+                .insert(SpatialBundle::default())
+                .with_children(|route| {
+                    route
+                        .spawn((
+                            UiTreeBundle::<MainUi>::from(UiTree::new2d("MainMenu")),
+                            MovableByCamera,
+                        ))
+                        .with_children(|ui| {
+                            let root = UiLink::<MainUi>::path("Root");
+                            ui.spawn((
+                                root.clone(),
+                                UiLayout::window().size(r_size).pack::<Base>(),
+                            ));
+                            let background = UiLink::<SettingsPgUi>::path("Background");
+                            ui.spawn((
+                                background.clone(),
+                                UiLayout::window_full().pack::<Base>(),
+                                Pickable::IGNORE,
+                                UiImage2dBundle::from(asset_server.load("Level_base_diffuse.png")),
+                            ));
+                            ui.spawn((
+                                background.add("Panel"),
+                                UiLayout::window()
+                                    .size(Rl((40.0, 80.0)))
+                                    .pos(Rl((10.0, 10.0)))
+                                    .pack::<Base>(),
+                                Panel {
+                                    text: Some("Settings".to_string()),
+                                    color: BLACK.into(),
+                                    ..default()
+                                },
+                                SettingsPanel,
+                                Pickable::IGNORE,
+                            ));
+                        });
+                });
         }
     }
-
+}
 
 pub fn init_settings(
     mut commands: Commands,

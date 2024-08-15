@@ -1,6 +1,5 @@
 use bevy::prelude::*;
 use bevy_lunex::{UiGenericPlugin, UiPlugin};
-use bevy_third_person_camera::ThirdPersonCameraPlugin;
 use components::Ui3d;
 use events::SelectEvent;
 use hud::HudPlugin;
@@ -68,7 +67,6 @@ impl Plugin for UiScreensPlugin {
         app.insert_resource::<CodexSettings>(self.settings.clone())
             .add_event::<SelectEvent>()
             .add_plugins((
-                ThirdPersonCameraPlugin,
                 MainMenuPlugin,
                 PausePlugin,
                 SettingsUiPlugin,

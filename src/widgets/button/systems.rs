@@ -65,7 +65,7 @@ pub fn build_button(
                         .backward_speed(1.0),
                     UiAnimatorPipe::<Hover>::new(vec![text, image]),
                     UiColor::<Base>::new(button.color.into()),
-                    UiColor::<Hover>::new(button.color.lighter(0.3).into()),
+                    UiColor::<Hover>::new(button.color.lighter(0.5).into()),
                     OnHoverSetCursor::new(CursorIcon::Pointer),
                     UiClickEmitter {
                         target: Some(entity),

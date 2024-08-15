@@ -8,11 +8,10 @@ use bevy::{
     window::PrimaryWindow,
 };
 use bevy_lunex::{
-    prelude::{MainUi, Pickable, Rl, Scaling, UiNodeTreeInitTrait, UiTree},
+    prelude::{MainUi, Pickable, Rl, UiNodeTreeInitTrait, UiTree},
     Base, MovableByCamera, PackageLayout, PickingPortal, UiImage2dBundle, UiLayout, UiLink,
     UiTreeBundle,
 };
-use bevy_third_person_camera::{ThirdPersonCamera, Zoom};
 
 use super::components::{Hud, UiDisplay};
 use crate::components::MainCam;
@@ -57,45 +56,37 @@ pub fn build_hud(
                 .with_children(|route| {
                     image.resize(size);
                     let render_image = asset_server.add(image);
-                    //player_slot
-                    route
-                        .spawn((SpatialBundle::default(), MainCam))
-                        .with_children(|route| {
-                            // Spawn 3D camera
-                            route.spawn((
-                                Camera3dBundle {
-                                    camera: Camera {
-                                        order: -1,
-                                        target: render_image.clone().into(),
-                                        clear_color: ClearColorConfig::Default,
-                                        ..default()
-                                    },
-                                    projection: Projection::Perspective(PerspectiveProjection {
-                                        fov: 60.0_f32.to_radians(),
-                                        ..default()
-                                    }),
-                                    ..default()
-                                },
-                                VisibilityBundle::default(),
-                                ThirdPersonCamera {
-                                    aim_enabled: true,
-                                    aim_speed: 6.0,
-                                    aim_zoom: 0.7,
-                                    zoom: Zoom::new(5.5, 10.0),
-                                    sensitivity: Vec2::splat(4.0),
-                                    ..default()
-                                },
-                                ScreenSpaceReflectionsBundle::default(),
-                                Fxaa::default(),
-                                EnvironmentMapLight {
-                                    diffuse_map: asset_server
-                                        .load(env_pth.to_string() + "diffuse" + env_suffix),
-                                    specular_map: asset_server
-                                        .load(env_pth.to_string() + "specular" + env_suffix),
-                                    intensity: 400.0,
-                                },
-                            ));
-                        });
+                    // route
+                    // .spawn((SpatialBundle::default(), MainCam))
+                    // .with_children(|route| {
+                    // Spawn 3D camera
+                    route.spawn((
+                        MainCam,
+                        Camera3dBundle {
+                            camera: Camera {
+                                order: -1,
+                                target: render_image.clone().into(),
+                                clear_color: ClearColorConfig::Default,
+                                ..default()
+                            },
+                            projection: Projection::Perspective(PerspectiveProjection {
+                                fov: 60.0_f32.to_radians(),
+                                ..default()
+                            }),
+                            ..default()
+                        },
+                        VisibilityBundle::default(),
+                        ScreenSpaceReflectionsBundle::default(),
+                        Fxaa::default(),
+                        EnvironmentMapLight {
+                            diffuse_map: asset_server
+                                .load(env_pth.to_string() + "diffuse" + env_suffix),
+                            specular_map: asset_server
+                                .load(env_pth.to_string() + "specular" + env_suffix),
+                            intensity: 400.0,
+                        },
+                    ));
+
                     // Spawn the background
                     route
                         .spawn((

@@ -1,10 +1,7 @@
 use bevy::{color::palettes::css::BLACK, prelude::*, window::PrimaryWindow};
 use bevy_lunex::{prelude::*, Base};
 
-use crate::widgets::{
-    panel::components::Panel,
-    slider::components::{Knob, Rack},
-};
+use crate::widgets::{panel::components::Panel, slider::components::Knob};
 
 use super::{
     components::{SettingsPanel, SettingsPg, SettingsPgUi},

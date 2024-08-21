@@ -27,10 +27,10 @@ pub fn update_value(
 }
 
 pub fn build_slider(mut commands: Commands, query: Query<(Entity, &SliderUi), Added<SliderUi>>) {
-    for (entity, slider) in &query {
+    for (entity, _) in &query {
         commands
             .entity(entity)
             .insert(UiTreeBundle::<SliderUi>::from(UiTree::new2d("Slider")))
-            .with_children(|ui| {});
+            .with_children(|_| {});
     }
 }

@@ -50,7 +50,7 @@ fn build_panel<T>(
                 panel_link.clone(),
                 UiLayout::window_full().pack::<Base>(),
                 Pickable::IGNORE,
-                UiColor::<Base>::new(panel.color.into()),
+                UiColor::<Base>::new(panel.color),
             ));
             if panel.texture.is_some() {
                 panel_bundle.insert((
@@ -75,7 +75,7 @@ fn build_panel<T>(
                 UiText2dBundle {
                     text: Text::from_section(
                         panel.text.clone().unwrap(),
-                        get_panel_text_styles(&assets),
+                        get_panel_text_styles(assets),
                     ),
                     ..default()
                 },

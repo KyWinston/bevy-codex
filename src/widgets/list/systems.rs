@@ -24,7 +24,7 @@ pub fn build_list(
                 ));
                 for item in &list.items {
                     ui.spawn((
-                        list_link.add("Button-".to_string() + &item),
+                        list_link.add("Button-".to_string() + item),
                         UiLayout::window()
                             .y(Rl(offset))
                             .x(Rl(5.0))
@@ -35,7 +35,7 @@ pub fn build_list(
                             link: "Button".to_string(),
                             text: item.to_string(),
                             texture: assets.load(codex_settings.button_texture.clone()),
-                            color: codex_settings.button_color.into(),
+                            color: codex_settings.button_color,
                         },
                     ));
                     offset += list.gap + list.size;

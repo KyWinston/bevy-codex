@@ -35,17 +35,9 @@ pub mod prelude {
         Splash,
         Debug,
     }
-    #[derive(Clone)]
+    #[derive(Clone, Default)]
     pub struct UiScreensPlugin {
         pub settings: CodexSettings,
-    }
-
-    impl Default for UiScreensPlugin {
-        fn default() -> Self {
-            Self {
-                settings: CodexSettings::default(),
-            }
-        }
     }
 }
 

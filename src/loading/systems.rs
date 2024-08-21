@@ -3,10 +3,7 @@ use bevy_lunex::prelude::*;
 
 use crate::UiState;
 
-use super::{
-    components::{Loading, LoadingUi},
-    styles::get_loading_text_styles,
-};
+use super::{components::Loading, styles::get_loading_text_styles};
 
 pub fn build_loading(
     mut commands: Commands,
@@ -28,7 +25,7 @@ pub fn build_loading(
                         UiLayout::window()
                             .pos((Rl(80.0) - Ab(60.0), Rl(90.0) - Ab(20.0)))
                             .pack::<Base>(),
-                        UiColor::<Base>::new(Color::Srgba(BLACK.into())),
+                        UiColor::<Base>::new(Color::Srgba(BLACK)),
                         Pickable::IGNORE,
                         UiTextSize::new().size(Rh(10.0)),
                         UiText2dBundle {

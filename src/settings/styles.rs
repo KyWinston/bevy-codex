@@ -19,7 +19,5 @@ pub fn get_subtitle_text_styles(asset_server: &Res<AssetServer>) -> TextStyle {
         font: asset_server.load("fonts/FiraSans-Bold.ttf"),
         font_size: 40.0,
         color: Color::WHITE,
-        ..default()
     }
 }
-

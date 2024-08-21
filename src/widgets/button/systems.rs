@@ -17,7 +17,9 @@ pub fn build_button(
     for (entity, button) in &query {
         commands
             .entity(entity)
-            .insert(UiTreeBundle::<CustomButtonUi>::from(UiTree::new2d("Button")))
+            .insert(UiTreeBundle::<CustomButtonUi>::from(UiTree::new2d(
+                "Button",
+            )))
             .with_children(|ui| {
                 let image = ui
                     .spawn((
@@ -64,8 +66,8 @@ pub fn build_button(
                         .forward_speed(5.0)
                         .backward_speed(1.0),
                     UiAnimatorPipe::<Hover>::new(vec![text, image]),
-                    UiColor::<Base>::new(button.color.into()),
-                    UiColor::<Hover>::new(button.color.lighter(0.5).into()),
+                    UiColor::<Base>::new(button.color),
+                    UiColor::<Hover>::new(button.color.lighter(0.5)),
                     OnHoverSetCursor::new(CursorIcon::Pointer),
                     UiClickEmitter {
                         target: Some(entity),

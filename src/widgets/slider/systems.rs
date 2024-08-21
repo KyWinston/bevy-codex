@@ -2,9 +2,8 @@ use bevy::prelude::*;
 use bevy_lunex::prelude::*;
 use bevy_settings::PersistSettings;
 
-use crate::settings::resources::Settings;
-
 use super::components::{Knob, Rack, SliderUi};
+use crate::settings::resources::Settings;
 
 pub fn update_value(
     mut settings: ResMut<Settings>,
@@ -31,7 +30,7 @@ pub fn build_slider(mut commands: Commands, query: Query<(Entity, &SliderUi), Ad
     for (entity, slider) in &query {
         commands
             .entity(entity)
-            .insert((UiTreeBundle::<SliderUi>::from(UiTree::new2d("Slider")),))
+            .insert(UiTreeBundle::<SliderUi>::from(UiTree::new2d("Slider")))
             .with_children(|ui| {});
     }
 }

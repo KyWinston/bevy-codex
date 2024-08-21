@@ -23,6 +23,13 @@ bevy = { version = "0.14.1", default-features = false, features = [
 bevy-settings = "0.6.0"
 bevy_lunex = "0.2.3"
 
+[dev-dependencies]
+cargo-husky = { version = "1", features = [
+    "precommit-hook",
+    "run-cargo-test",
+    "run-cargo-clippy",
+] }
+
 # Enable a small amount of optimization in debug mode
 [profile.dev]
 opt-level = 1

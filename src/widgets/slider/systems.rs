@@ -7,7 +7,7 @@ use crate::settings::resources::Settings;
 
 pub fn update_value(
     mut settings: ResMut<Settings>,
-    mut ui_q: Query<(&Knob, &mut Style)>,
+    mut ui_q: Query<(&Knob)>,
     mut rack_q: Query<&Rack>,
     mut ev: EventReader<Pointer<Drag>>,
     mut writer: EventWriter<PersistSettings>,

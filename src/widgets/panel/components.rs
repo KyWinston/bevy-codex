@@ -1,6 +1,6 @@
 use bevy::{color::palettes::css::WHITE, prelude::*, sprite::Anchor};
 
-use crate::widgets::button::components::CustomButtonRef;
+use crate::widgets::{button::components::CustomButtonRef, status_bar::components::StatusBar};
 
 #[derive(Component, Clone)]
 pub struct PanelUi;
@@ -24,6 +24,19 @@ impl Default for Panel<CustomButtonRef> {
             texture: None,
             color: WHITE.into(),
             text_alignment: Anchor::TopCenter,
+            content: vec![],
+        }
+    }
+}
+
+
+impl Default for Panel<StatusBar> {
+    fn default() -> Self {
+        Self {
+            text: None,
+            texture: None,
+            color: WHITE.into(),
+            text_alignment: Anchor::CenterLeft,
             content: vec![],
         }
     }

@@ -12,10 +12,13 @@ pub struct PausePlugin;
 
 impl Plugin for PausePlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(PreUpdate, build_pause.before(UiSystems::Compute))
+        app.add_systems(Update, build_pause.before(UiSystems::Compute))
             .add_systems(
                 Update,
-                pause_button_clicked_system.run_if(on_event::<UiClickEvent>()),
+                (
+                    pause_button_clicked_system.run_if(on_event::<UiClickEvent>()),
+                    build_pause.before(UiSystems::Compute),
+                ),
             )
             .add_systems(OnExit(SimulationState::Paused), despawn_pause);
     }

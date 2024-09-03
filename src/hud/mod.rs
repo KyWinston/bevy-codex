@@ -10,6 +10,6 @@ pub struct HudPlugin;
 
 impl Plugin for HudPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(PreUpdate, build_hud.before(UiSystems::Compute));
+        app.add_systems(Update, build_hud.before(UiSystems::Compute));
     }
 }

@@ -11,24 +11,34 @@ exclude = ["/examples"]
 
 [dependencies]
 serde = "1.0.99"
+
 bevy = { version = "0.14.1", default-features = false, features = [
     "bevy_asset",
     "bevy_state",
-    "bevy_render",
     "bevy_core_pipeline",
-    "x11",
-    "bevy_ui",
     "png",
 ] }
 bevy-settings = "0.6.0"
 bevy_lunex = "0.2.3"
 
 [dev-dependencies]
+bevy = { version = "0.14.1", default-features = false, features = [
+    "bevy_asset",
+    "bevy_state",
+    "bevy_core_pipeline",
+    "png",
+] }
+
 cargo-husky = { version = "1", features = [
     "precommit-hook",
     "run-cargo-test",
     "run-cargo-clippy",
 ] }
+
+[target.'cfg(target_os = "linux")'.dev-dependencies.bevy]
+version = "0.14.1"
+features = ["x11", "wayland"]
+default-features = false
 
 # Enable a small amount of optimization in debug mode
 [profile.dev]
@@ -37,3 +47,7 @@ opt-level = 1
 # Enable high optimizations for dependencies (incl. Bevy), but not for our code:
 [profile.dev.package."*"]
 opt-level = 3
+
+[profile.release]
+codegen-units = 1
+strip = true

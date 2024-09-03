@@ -1,20 +1,32 @@
-use bevy::prelude::*;
+use bevy::{color::palettes::css::YELLOW, prelude::*, sprite::Anchor};
 use bevy_lunex::prelude::*;
 
 use crate::{components::Quit, events::SelectEvent, splash::components::SplashScreen};
 
-pub fn init_ui_cam(mut commands: Commands) {
+pub fn init_ui_cam(mut commands: Commands, assets: Res<AssetServer>) {
     commands.spawn(camera()).with_children(|cam| {
         let mut cursor = Cursor2d::new();
         cursor.request_cursor(CursorIcon::Default, 0.0);
         cursor.request_cursor(CursorIcon::Pointer, 1.0);
         cursor.request_cursor(CursorIcon::Grab, 2.0);
 
-        cam.spawn((
+        cam.spawn(StyledCursorBundle {
             cursor,
-            Pickable::IGNORE,
-            PointerBundle::new(PointerId::Custom(pointer::Uuid::new_v4())),
-        ));
+            sprite: SpriteBundle {
+                texture: assets.load("images/ui/cursor_pointer3D_shadow.png"),
+                transform: Transform {
+                    scale: Vec3::new(0.45, 0.45, 1.0),
+                    ..default()
+                },
+                sprite: Sprite {
+                    color: YELLOW.into(),
+                    anchor: Anchor::TopLeft,
+                    ..default()
+                },
+                ..default()
+            },
+            ..default()
+        });
     });
 
     commands.spawn(SplashScreen);
@@ -37,6 +49,7 @@ pub fn camera() -> impl Bundle {
             },
             ..default()
         },
+        InheritedVisibility::default(),
     )
 }
 

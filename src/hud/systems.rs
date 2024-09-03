@@ -8,12 +8,10 @@ use bevy::{
     window::PrimaryWindow,
 };
 use bevy_lunex::{
-    prelude::{MainUi, Pickable, Rl, UiNodeTreeInitTrait, UiTree},
-    Base, MovableByCamera, PackageLayout, PickingPortal, UiImage2dBundle, UiLayout, UiLink,
-    UiTreeBundle,
+    prelude::*, Base, PackageLayout, PickingPortal, UiImage2dBundle, UiLayout, UiLink,
 };
 
-use super::components::{Hud, UiDisplay};
+use super::components::{Hud, SurfaceHud};
 use crate::components::MainCam;
 
 pub fn build_hud(
@@ -48,25 +46,23 @@ pub fn build_hud(
                 },
                 ..default()
             };
+            image.resize(size);
 
             // Spawn the route
             commands
                 .entity(route_entity)
                 .insert(SpatialBundle::default())
                 .with_children(|route| {
-                    image.resize(size);
                     let render_image = asset_server.add(image);
-                    // route
-                    // .spawn((SpatialBundle::default(), MainCam))
-                    // .with_children(|route| {
-                    // Spawn 3D camera
                     route.spawn((
                         MainCam,
                         Camera3dBundle {
                             camera: Camera {
                                 order: -1,
                                 target: render_image.clone().into(),
-                                clear_color: ClearColorConfig::Default,
+                                clear_color: ClearColorConfig::Custom(Color::srgba(
+                                    0.0, 0.0, 0.0, 0.0,
+                                )),
                                 ..default()
                             },
                             projection: Projection::Perspective(PerspectiveProjection {
@@ -76,7 +72,6 @@ pub fn build_hud(
                             ..default()
                         },
                         VisibilityBundle::default(),
-                       
                         ScreenSpaceReflectionsBundle::default(),
                         Fxaa::default(),
                         EnvironmentMapLight {
@@ -94,7 +89,6 @@ pub fn build_hud(
                             UiTreeBundle::<MainUi>::from(UiTree::new2d("HUD")),
                             UiLayout::window().size(Rl(w_size)).pack::<Base>(),
                             MovableByCamera,
-                            UiDisplay,
                         ))
                         .with_children(|ui| {
                             // Spawn 3D camera view
@@ -108,6 +102,7 @@ pub fn build_hud(
                                 UiLink::<MainUi>::path("Camera/Hud"),
                                 UiLayout::window_full().pack::<Base>(),
                                 Pickable::IGNORE,
+                                SurfaceHud
                             ));
                         });
                 });

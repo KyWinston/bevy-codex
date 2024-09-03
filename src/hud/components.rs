@@ -4,4 +4,4 @@ use bevy::prelude::*;
 pub struct Hud;
 
 #[derive(Component)]
-pub struct UiDisplay;
+pub struct SurfaceHud;

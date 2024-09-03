@@ -13,7 +13,7 @@ pub struct LoadingPlugin;
 
 impl Plugin for LoadingPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(PreUpdate, build_loading.before(UiSystems::Compute));
+        app.add_systems(Update, build_loading.before(UiSystems::Compute));
         app.add_systems(
             OnExit(UiState::Loading),
             |mut commands: Commands, load_q: Query<Entity, With<Loading>>| {

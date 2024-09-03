@@ -8,7 +8,7 @@ use main_menu::MainMenuPlugin;
 use pause::PausePlugin;
 use prelude::*;
 use resources::CodexSettings;
-use settings::SettingsUiPlugin;
+// use settings::SettingsUiPlugin;
 use splash::SplashPlugin;
 use systems::{exit, init_ui_cam};
 use widgets::WidgetPlugins;
@@ -61,7 +61,7 @@ impl Plugin for UiScreensPlugin {
             .add_plugins((
                 MainMenuPlugin,
                 PausePlugin,
-                SettingsUiPlugin,
+                // SettingsUiPlugin,
                 SplashPlugin,
                 HudPlugin,
                 WidgetPlugins,

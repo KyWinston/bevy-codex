@@ -1,7 +1,9 @@
 use bevy::prelude::*;
 use bevy_lunex::prelude::*;
 
-use crate::widgets::{button::components::CustomButtonRef, list::components::List};
+use crate::widgets::{
+    button::components::CustomButtonRef, list::components::List, status_bar::components::StatusBar,
+};
 
 use super::{
     components::{Panel, PanelUi},
@@ -31,6 +33,25 @@ pub fn build_button_panel(
                     ..default()
                 },
             ));
+        });
+    }
+}
+
+pub fn build_status_bar_panel(
+    mut commands: Commands,
+    assets: Res<AssetServer>,
+    query: Query<(Entity, &Panel<StatusBar>), Added<Panel<StatusBar>>>,
+) {
+    for (entity, panel) in &query {
+        let panel_ent = build_panel::<StatusBar>(&mut commands, &assets, entity, panel);
+        commands.entity(panel_ent).with_children(|ui| {
+            for bar in panel.content.clone() {
+                ui.spawn((
+                    UiLink::<PanelUi>::path("Panel/Statusbar-".to_string() + &bar.label),
+                    UiLayout::solid().size((1920.0,1080.0)).scaling(Scaling::Fit).pack::<Base>(),
+                    bar,
+                ));
+            }
         });
     }
 }
@@ -68,19 +89,21 @@ fn build_panel<T>(
                     },
                 ));
             }
-            ui.spawn((
-                panel_link.add("Heading"),
-                UiLayout::window().pack::<Base>(),
-                UiTextSize::new().size(Rh(13.0)),
-                UiText2dBundle {
-                    text: Text::from_section(
-                        panel.text.clone().unwrap(),
-                        get_panel_text_styles(assets),
-                    ),
-                    ..default()
-                },
-                Pickable::IGNORE,
-            ));
+            if panel.text.is_some() {
+                ui.spawn((
+                    panel_link.add("Heading"),
+                    UiLayout::window().pack::<Base>(),
+                    UiTextSize::new().size(Rh(13.0)),
+                    UiText2dBundle {
+                        text: Text::from_section(
+                            panel.text.clone().unwrap(),
+                            get_panel_text_styles(assets),
+                        ),
+                        ..default()
+                    },
+                    Pickable::IGNORE,
+                ));
+            }
         })
         .id()
 }

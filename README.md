@@ -9,7 +9,7 @@ Installation
 To include Lyrebird in your Bevy project, add the following to your Cargo.toml:
 ```
 [dependencies]
-bevy-codex = "0.6.8"
+bevy-codex = "0.6.0"
 ```
 Note that, as this crate is in alpha, future versions may introduce breaking changes.
 

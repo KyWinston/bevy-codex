@@ -11,8 +11,7 @@ exclude = ["/examples"]
 
 [dependencies]
 serde = "1.0.99"
-
-bevy = { version = "0.14.1", default-features = false, features = [
+bevy = { version="0.14.1", default-features = false, features = [
     "bevy_asset",
     "bevy_state",
     "bevy_core_pipeline",
@@ -22,13 +21,6 @@ bevy-settings = "0.6.0"
 bevy_lunex = "0.2.3"
 
 [dev-dependencies]
-bevy = { version = "0.14.1", default-features = false, features = [
-    "bevy_asset",
-    "bevy_state",
-    "bevy_core_pipeline",
-    "png",
-] }
-
 cargo-husky = { version = "1", features = [
     "precommit-hook",
     "run-cargo-test",
@@ -37,6 +29,8 @@ cargo-husky = { version = "1", features = [
 
 [target.'cfg(target_os = "linux")'.dev-dependencies.bevy]
 version = "0.14.1"
+# git = "https://github.com/bevyengine/bevy"
+# branch = "release-0.14.2"
 features = ["x11", "wayland"]
 default-features = false
 

@@ -9,14 +9,13 @@ use pause::PausePlugin;
 use prelude::*;
 use resources::CodexSettings;
 // use settings::SettingsUiPlugin;
-use splash::SplashPlugin;
+use splash::SplashReelPlugin;
 use systems::{exit, init_ui_cam};
 use widgets::WidgetPlugins;
 
 pub mod prelude {
-    use bevy::{prelude::Component, reflect::Reflect, state::state::States};
-
     use crate::resources::CodexSettings;
+    use bevy::{prelude::Component, reflect::Reflect, state::state::States};
 
     #[derive(Default, States, Debug, Reflect, Hash, Eq, PartialEq, Clone)]
     pub enum SimulationState {
@@ -35,6 +34,7 @@ pub mod prelude {
         Splash,
         Debug,
     }
+
     #[derive(Clone, Default)]
     pub struct UiScreensPlugin {
         pub settings: CodexSettings,
@@ -62,7 +62,7 @@ impl Plugin for UiScreensPlugin {
                 MainMenuPlugin,
                 PausePlugin,
                 // SettingsUiPlugin,
-                SplashPlugin,
+                SplashReelPlugin,
                 HudPlugin,
                 WidgetPlugins,
                 UiPlugin,

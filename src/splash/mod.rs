@@ -1,25 +1,79 @@
-use bevy::prelude::*;
-use bevy_lunex::UiSystems;
-use components::SplashTimer;
-use systems::build_splash;
+use std::time::Duration;
 
-use crate::UiState;
+use bevy::{
+    color::palettes::css::{NAVY, WHITE},
+    prelude::*,
+};
+use bevy_splash_screen::{SplashAssetType, SplashItem, SplashPlugin, SplashScreen};
+use bevy_tweening::EaseFunction;
 
-use self::systems::count_down;
-
+use crate::{main_menu::components::MainMenu, UiState};
 pub mod components;
-pub mod systems;
 
-pub struct SplashPlugin;
-impl Plugin for SplashPlugin {
+pub struct SplashReelPlugin;
+impl Plugin for SplashReelPlugin {
     fn build(&self, app: &mut App) {
-        app.insert_resource::<SplashTimer>(SplashTimer(Timer::from_seconds(5.0, TimerMode::Once)))
-            .add_systems(
-                Update,
-                (
-                    build_splash.before(UiSystems::Compute),
-                    count_down.run_if(in_state(UiState::Splash)),
-                ),
-            );
+        app.add_plugins(
+            SplashPlugin::new(UiState::Splash, UiState::MainMenu)
+                .skipable()
+                .add_screen(SplashScreen {
+                    brands: vec![
+                        SplashItem {
+                            asset: SplashAssetType::SingleText(
+                                Text::from_sections([TextSection::new(
+                                    "Geksupport & JazPixel Present",
+                                    TextStyle {
+                                        font_size: 32.,
+                                        color: WHITE.into(),
+                                        ..default()
+                                    },
+                                )])
+                                .with_justify(JustifyText::Center),
+                                "fonts/FiraSans-Bold.ttf".to_string(),
+                            ),
+                            tint: WHITE.into(),
+                            width: Val::Percent(30.),
+                            height: Val::Px(100.),
+                            ease_function: EaseFunction::QuarticInOut.into(),
+                            duration: Duration::from_secs_f32(5.),
+                            is_static: false,
+                        },
+                        SplashItem {
+                            asset: SplashAssetType::SingleImage("branding/icon.png".to_string()),
+                            tint: WHITE.into(),
+                            width: Val::Percent(25.),
+                            height: Val::Auto,
+                            ease_function: EaseFunction::QuinticInOut.into(),
+                            duration: Duration::from_secs_f32(5.),
+                            is_static: true,
+                        },
+                        SplashItem {
+                            asset: SplashAssetType::SingleText(
+                                Text::from_sections([TextSection::new(
+                                    "A Game Powered by BevyEngine",
+                                    TextStyle {
+                                        font_size: 32.,
+                                        color: WHITE.into(),
+                                        ..default()
+                                    },
+                                )])
+                                .with_justify(JustifyText::Center),
+                                "fonts/FiraSans-Bold.ttf".to_string(),
+                            ),
+                            tint: WHITE.into(),
+                            width: Val::Percent(30.),
+                            height: Val::Px(120.),
+                            ease_function: EaseFunction::QuinticInOut.into(),
+                            duration: Duration::from_secs_f32(5.),
+                            is_static: false,
+                        },
+                    ],
+                    background_color: BackgroundColor(NAVY.into()),
+                    ..default()
+                }),
+        )
+        .add_systems(OnEnter(UiState::MainMenu), |mut commands: Commands| {
+            commands.spawn(MainMenu);
+        });
     }
 }

@@ -1,12 +1,20 @@
-use bevy::{color::palettes::css::WHITE, prelude::*};
+use bevy::{color::palettes::css::WHITE, prelude::*, utils::HashMap};
+use serde::Deserialize;
 
-#[derive(Resource, Clone)]
+#[derive(Asset, TypePath, Resource, Clone)]
 pub struct CodexSettings {
     pub title: String,
     pub button_texture: String,
     pub button_color: Color,
     pub font: String,
     pub debug: bool,
+    pub splash_duration: f32,
+}
+
+#[derive(Asset, TypePath, Resource, Clone, Deserialize)]
+pub struct GameSettings {
+    pub audio_settings: HashMap<String, f32>,
+    pub network_port: Option<u32>,
 }
 
 impl Default for CodexSettings {
@@ -17,6 +25,7 @@ impl Default for CodexSettings {
             button_color: WHITE.into(),
             font: "fonts/FiraSans-Bold.ttf".to_string(),
             debug: false,
+            splash_duration: 5.0,
         }
     }
 }

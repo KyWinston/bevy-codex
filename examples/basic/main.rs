@@ -1,11 +1,17 @@
 use bevy::prelude::*;
-use bevy_codex::prelude::*;
+use bevy_codex::{prelude::*, resources::CodexSettings};
 
 #[derive(Resource)]
 struct LoadTimer(Timer);
 fn main() {
     App::new()
-        .add_plugins((DefaultPlugins, UiScreensPlugin::default()))
+        .add_plugins((
+            DefaultPlugins,
+            UiScreensPlugin {
+                config: CodexSettings::default(),
+                game_settings_folder: "game_settings".to_string(),
+            },
+        ))
         .add_systems(OnEnter(UiState::Loading), start_load)
         .add_systems(Update, move_to_hud.run_if(in_state(UiState::Loading)))
         .run();

@@ -1,12 +1,9 @@
 use bevy::{
-    color::palettes::css::{BLUE, RED, WHITE},
+    color::palettes::css::{BLUE, RED},
     prelude::*,
 };
 use bevy_codex::{
-    hud::components::{Hud, SurfaceHud},
-    prelude::*,
-    resources::CodexSettings,
-    widgets::{panel::components::Panel, status_bar::components::StatusBar},
+    hud::components::{Hud, SurfaceHud}, prelude::*, resources::CodexSettings, widgets::{panel::components::Panel, status_bar::components::StatusBar}
 };
 
 #[derive(Resource)]
@@ -17,12 +14,8 @@ fn main() {
         .add_plugins((
             DefaultPlugins,
             UiScreensPlugin {
-                settings: CodexSettings {
-                    title: "Hud Example".to_string(),
-                    button_color: WHITE.into(),
-                    debug: true,
-                    ..default()
-                },
+                config:CodexSettings::default(),
+                game_settings_folder: "game_settings".to_string(),
             },
         ))
         .add_systems(OnEnter(UiState::Loading), start_load)

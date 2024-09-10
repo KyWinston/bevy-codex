@@ -1,4 +1,5 @@
 use bevy::prelude::*;
+use bevy_easy_config::EasyConfigPlugin;
 use bevy_lunex::{UiGenericPlugin, UiPlugin};
 use components::Ui3d;
 use events::SelectEvent;
@@ -7,21 +8,24 @@ use loading::LoadingPlugin;
 use main_menu::MainMenuPlugin;
 use pause::PausePlugin;
 use prelude::*;
-use resources::CodexSettings;
+use resources::{CodexSettings, GameSettings};
+
 // use settings::SettingsUiPlugin;
 use splash::SplashReelPlugin;
 use systems::{exit, init_ui_cam};
 use widgets::WidgetPlugins;
 
 pub mod prelude {
-    use crate::resources::CodexSettings;
     use bevy::{prelude::Component, reflect::Reflect, state::state::States};
+
+    use crate::resources::CodexSettings;
 
     #[derive(Default, States, Debug, Reflect, Hash, Eq, PartialEq, Clone)]
     pub enum SimulationState {
         #[default]
         Running,
         Paused,
+        Editor,
     }
 
     #[derive(Default, States, Component, Reflect, Debug, Hash, Eq, PartialEq, Clone)]
@@ -35,9 +39,10 @@ pub mod prelude {
         Debug,
     }
 
-    #[derive(Clone, Default)]
+    #[derive(Clone)]
     pub struct UiScreensPlugin {
-        pub settings: CodexSettings,
+        pub game_settings_folder: String,
+        pub config: CodexSettings,
     }
 }
 
@@ -56,9 +61,10 @@ pub mod widgets;
 
 impl Plugin for UiScreensPlugin {
     fn build(&self, app: &mut App) {
-        app.insert_resource::<CodexSettings>(self.settings.clone())
-            .add_event::<SelectEvent>()
+        app.add_event::<SelectEvent>()
+            .insert_resource::<CodexSettings>(self.config.clone())
             .add_plugins((
+                EasyConfigPlugin::<GameSettings>::new(self.game_settings_folder.clone() + ".ron"),
                 MainMenuPlugin,
                 PausePlugin,
                 // SettingsUiPlugin,

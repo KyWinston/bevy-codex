@@ -7,12 +7,13 @@ use bevy::{
 use bevy_splash_screen::{SplashAssetType, SplashItem, SplashPlugin, SplashScreen};
 use bevy_tweening::EaseFunction;
 
-use crate::{main_menu::components::MainMenu, UiState};
+use crate::{main_menu::components::MainMenu, resources::CodexSettings, UiState};
 pub mod components;
 
-pub struct SplashReelPlugin;
+ pub struct SplashReelPlugin;
 impl Plugin for SplashReelPlugin {
     fn build(&self, app: &mut App) {
+        let codex_settings = app.world().resource::<CodexSettings>();
         app.add_plugins(
             SplashPlugin::new(UiState::Splash, UiState::MainMenu)
                 .skipable()
@@ -35,7 +36,7 @@ impl Plugin for SplashReelPlugin {
                             width: Val::Percent(30.),
                             height: Val::Px(100.),
                             ease_function: EaseFunction::QuarticInOut.into(),
-                            duration: Duration::from_secs_f32(5.),
+                            duration: Duration::from_secs_f32(codex_settings.splash_duration),
                             is_static: false,
                         },
                         SplashItem {
@@ -44,7 +45,7 @@ impl Plugin for SplashReelPlugin {
                             width: Val::Percent(25.),
                             height: Val::Auto,
                             ease_function: EaseFunction::QuinticInOut.into(),
-                            duration: Duration::from_secs_f32(5.),
+                            duration: Duration::from_secs_f32(codex_settings.splash_duration),
                             is_static: true,
                         },
                         SplashItem {

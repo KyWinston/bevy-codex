@@ -10,18 +10,17 @@ keywords = ["bevy", "menus", "ui"]
 exclude = ["/examples"]
 
 [dependencies]
-serde = "1.0.99"
-bevy = { version = "0.14.2", default-features = false, features = [
+serde = { version = "1.0.99", workspace = true, features = ["derive"] }
+bevy = { version = "0.14.2", workspace = true, default-features = false, features = [
     "bevy_asset",
     "bevy_state",
     "bevy_core_pipeline",
     "png",
 ] }
-bevy-settings = "0.6.0"
 bevy_lunex = "0.2.3"
+bevy_easy_config = "0.2.0"
 bevy_splash_screen = { git = "https://github.com/KyWinston/bevy_splash_screen", branch = "main" }
 bevy_tweening = { git = "https://github.com/SergioRibera/bevy_tweening", branch = "infinite_mirrored" }
-# bevy_splash_screen = "0.6.0"
 
 [dev-dependencies]
 cargo-husky = { version = "1", features = [
@@ -29,8 +28,7 @@ cargo-husky = { version = "1", features = [
     "run-cargo-test",
     "run-cargo-clippy",
 ] }
-# bevy_splash_screen = { version = "0.6.0", features = ["dev"] }
-bevy_splash_screen = { git = "https://github.com/KyWinston/bevy_splash_screen", branch = "main" }
+
 [target.'cfg(target_os = "linux")'.dev-dependencies.bevy]
 version = "0.14.2"
 features = ["x11", "wayland"]

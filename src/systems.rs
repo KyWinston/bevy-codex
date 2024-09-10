@@ -6,10 +6,13 @@ use crate::{components::Quit, events::SelectEvent, splash::components::SplashScr
 pub fn init_ui_cam(mut commands: Commands, assets: Res<AssetServer>) {
     commands.spawn(camera()).with_children(|cam| {
         let mut cursor = Cursor2d::new();
-        cursor.request_cursor(CursorIcon::Default, 0.0);
-        cursor.request_cursor(CursorIcon::Pointer, 1.0);
-        cursor.request_cursor(CursorIcon::Grab, 2.0);
-
+        for (icon, priority) in [
+            (CursorIcon::Default, 0.0),
+            (CursorIcon::Pointer, 1.0),
+            (CursorIcon::Grab, 2.0),
+        ] {
+            cursor.request_cursor(icon, priority);
+        }
         cam.spawn(StyledCursorBundle {
             cursor,
             sprite: SpriteBundle {

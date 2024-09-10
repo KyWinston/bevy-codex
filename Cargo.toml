@@ -10,8 +10,8 @@ keywords = ["bevy", "menus", "ui"]
 exclude = ["/examples"]
 
 [dependencies]
-serde = { version = "1.0.99", workspace = true, features = ["derive"] }
-bevy = { version = "0.14.2", workspace = true, default-features = false, features = [
+serde = { version = "1.0.99", features = ["derive"] }
+bevy = { version = "0.14.2", default-features = false, features = [
     "bevy_asset",
     "bevy_state",
     "bevy_core_pipeline",
@@ -45,3 +45,4 @@ opt-level = 3
 [profile.release]
 codegen-units = 1
 strip = true
+

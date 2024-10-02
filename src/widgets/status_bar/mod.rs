@@ -1,4 +1,4 @@
-use bevy_lunex::{UiDebugPlugin, UiGenericPlugin, UiSystems};
+use bevy_lunex::{UiDebugPlugin, UiGenericPlugins, UiSystems};
 use components::StatusBarUi;
 use bevy::prelude::*;
 use systems::build_status_bar;
@@ -13,7 +13,7 @@ pub struct StatusBarPlugin;
 
 impl Plugin for StatusBarPlugin {
     fn build(&self, app: &mut App) {
-        app.add_plugins(UiGenericPlugin::<StatusBarUi>::new());
+        app.add_plugins(UiGenericPlugins::<StatusBarUi>::new());
         if app.world().resource::<CodexSettings>().debug {
             app.add_plugins(UiDebugPlugin::<StatusBarUi>::new());
         }

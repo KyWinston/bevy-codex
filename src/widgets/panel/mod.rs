@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use bevy_lunex::{UiDebugPlugin, UiGenericPlugin, UiSystems};
+use bevy_lunex::{UiDebugPlugin, UiGenericPlugins, UiSystems};
 use components::PanelUi;
 use systems::{build_button_panel, build_status_bar_panel};
 
@@ -14,7 +14,7 @@ pub struct PanelPlugin;
 
 impl Plugin for PanelPlugin {
     fn build(&self, app: &mut App) {
-        app.add_plugins(UiGenericPlugin::<PanelUi>::new());
+        app.add_plugins(UiGenericPlugins::<PanelUi>::new());
         if app.world().resource::<CodexSettings>().debug {
             app.add_plugins(UiDebugPlugin::<PanelUi>::new());
         }

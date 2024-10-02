@@ -1,6 +1,6 @@
 use self::systems::build_settings;
 use bevy::prelude::*;
-use bevy_lunex::UiGenericPlugin;
+use bevy_lunex::UiGenericPlugins;
 use components::SettingsPgUi;
 
 pub mod components;
@@ -13,7 +13,7 @@ pub struct SettingsUiPlugin;
 impl Plugin for SettingsUiPlugin {
     fn build(&self, app: &mut App) {
         app.add_plugins((
-            UiGenericPlugin::<SettingsPgUi>::new(),
+            UiGenericPlugins::<SettingsPgUi>::new(),
         ))
         .add_systems(Update, build_settings);
     }

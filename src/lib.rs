@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 use bevy_easy_config::EasyConfigPlugin;
-use bevy_lunex::{UiGenericPlugin, UiPlugin};
+use bevy_lunex::{UiDefaultPlugins, UiGenericPlugins};
 use components::Ui3d;
 use events::SelectEvent;
 use hud::HudPlugin;
@@ -71,9 +71,9 @@ impl Plugin for UiScreensPlugin {
                 SplashReelPlugin,
                 HudPlugin,
                 WidgetPlugins,
-                UiPlugin,
+                UiDefaultPlugins,
                 LoadingPlugin,
-                UiGenericPlugin::<Ui3d>::new(),
+                UiGenericPlugins::<Ui3d>::new(),
             ))
             .init_state::<SimulationState>()
             .init_state::<UiState>()

@@ -25,7 +25,7 @@ pub fn build_pause(
                     route
                         .spawn((
                             UiTreeBundle::<MainUi>::from(UiTree::new2d("PauseMenu")),
-                            MovableByCamera,
+                            SourceFromCamera,
                         ))
                         .with_children(|ui| {
                             let root = UiLink::<MainUi>::path("Root");

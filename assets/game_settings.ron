@@ -1,0 +1,4 @@
+GameSettings(
+    audio_settings: { "Master": 100.0, "Voice": 100.0, "Sound Effects": 100.0 },
+    network_port: Some(8000)
+)

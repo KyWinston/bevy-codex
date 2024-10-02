@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use bevy_lunex::{UiDebugPlugin, UiGenericPlugin, UiSystems};
+use bevy_lunex::{UiDebugPlugin, UiGenericPlugins, UiSystems};
 use components::CustomButtonUi;
 use systems::build_button;
 
@@ -14,7 +14,7 @@ pub struct ButtonPlugin;
 
 impl Plugin for ButtonPlugin {
     fn build(&self, app: &mut App) {
-        app.add_plugins((UiGenericPlugin::<CustomButtonUi>::new(),));
+        app.add_plugins((UiGenericPlugins::<CustomButtonUi>::new(),));
         if app.world().resource::<CodexSettings>().debug {
             app.add_plugins(UiDebugPlugin::<CustomButtonUi>::new());
         }

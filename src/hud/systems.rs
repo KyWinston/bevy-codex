@@ -88,7 +88,7 @@ pub fn build_hud(
                         .spawn((
                             UiTreeBundle::<MainUi>::from(UiTree::new2d("HUD")),
                             UiLayout::window().size(Rl(w_size)).pack::<Base>(),
-                            MovableByCamera,
+                            SourceFromCamera,
                         ))
                         .with_children(|ui| {
                             // Spawn 3D camera view
@@ -102,7 +102,7 @@ pub fn build_hud(
                                 UiLink::<MainUi>::path("Camera/Hud"),
                                 UiLayout::window_full().pack::<Base>(),
                                 Pickable::IGNORE,
-                                SurfaceHud
+                                SurfaceHud,
                             ));
                         });
                 });

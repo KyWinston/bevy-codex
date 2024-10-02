@@ -8,7 +8,26 @@ pub struct CodexSettings {
     pub button_color: Color,
     pub font: String,
     pub debug: bool,
+    pub splash_pages: Vec<SplashPage>,
+}
+
+#[derive(Clone)]
+pub struct SplashPage {
+    pub splash_header: String,
+    pub splash_logo: String,
+    pub splash_footer: String,
     pub splash_duration: f32,
+}
+
+impl Default for SplashPage {
+    fn default() -> Self {
+        Self {
+            splash_header: "".to_string(),
+            splash_logo: "icon".to_string(),
+            splash_footer: "".to_string(),
+            splash_duration: 5.0,
+        }
+    }
 }
 
 #[derive(Asset, TypePath, Resource, Clone, Deserialize)]
@@ -25,7 +44,13 @@ impl Default for CodexSettings {
             button_color: WHITE.into(),
             font: "fonts/FiraSans-Bold.ttf".to_string(),
             debug: false,
-            splash_duration: 5.0,
+            splash_pages: vec![SplashPage::default()],
         }
+    }
+}
+impl CodexSettings {
+    pub fn with_splash(&mut self, splash_pages: Vec<SplashPage>) -> Self {
+        self.splash_pages = splash_pages;
+        self.clone()
     }
 }

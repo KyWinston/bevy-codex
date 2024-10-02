@@ -21,7 +21,7 @@ pub fn build_settings(
                     route
                         .spawn((
                             UiTreeBundle::<MainUi>::from(UiTree::new2d("MainMenu")),
-                            MovableByCamera,
+                            SourceFromCamera,
                         ))
                         .with_children(|ui| {
                             let root = UiLink::<MainUi>::path("Root");

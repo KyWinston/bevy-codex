@@ -7,6 +7,7 @@ use status_bar::StatusBarPlugin;
 pub mod button;
 pub mod list;
 pub mod panel;
+pub mod dialogue;
 // pub mod slider;
 pub mod status_bar;
 

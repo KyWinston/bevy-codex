@@ -13,26 +13,23 @@ pub fn init_ui_cam(mut commands: Commands, assets: Res<AssetServer>) {
         ] {
             cursor.request_cursor(icon, priority);
         }
-        cam.spawn((
-            StyledCursorBundle {
-                cursor,
-                sprite: SpriteBundle {
-                    texture: assets.load("images/ui/cursor_pointer3D_shadow.png"),
-                    transform: Transform {
-                        scale: Vec3::new(0.45, 0.45, 1.0),
-                        ..default()
-                    },
-                    sprite: Sprite {
-                        color: YELLOW.into(),
-                        anchor: Anchor::TopLeft,
-                        ..default()
-                    },
+        cam.spawn((StyledCursorBundle {
+            cursor,
+            sprite: SpriteBundle {
+                texture: assets.load("images/ui/cursor_pointer3D_shadow.png"),
+                transform: Transform {
+                    scale: Vec3::new(0.45, 0.45, 1.0),
+                    ..default()
+                },
+                sprite: Sprite {
+                    color: YELLOW.into(),
+                    anchor: Anchor::TopLeft,
                     ..default()
                 },
                 ..default()
             },
-            GamepadCursor::new(0),
-        ));
+            ..default()
+        },));
     });
 
     commands.spawn(SplashScreen);

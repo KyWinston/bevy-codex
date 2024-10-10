@@ -21,6 +21,7 @@ bevy_lunex = "0.2.4"
 bevy_easy_config = "0.2.0"
 bevy_splash_screen = { git = "https://github.com/KyWinston/bevy_splash_screen", branch = "main" }
 bevy_tweening = { git = "https://github.com/SergioRibera/bevy_tweening", branch = "infinite_mirrored" }
+bevy_yarnspinner = "0.3.1"
 
 [dev-dependencies]
 cargo-husky = { version = "1", features = [

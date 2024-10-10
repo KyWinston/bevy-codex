@@ -13,10 +13,10 @@ pub struct CodexSettings {
 
 #[derive(Clone)]
 pub struct SplashPage {
-    pub splash_header: String,
-    pub splash_logo: String,
-    pub splash_footer: String,
-    pub splash_duration: f32,
+    pub(crate) splash_header: String,
+    pub(crate) splash_logo: String,
+    pub(crate) splash_footer: String,
+    pub(crate) splash_duration: f32,
 }
 
 impl Default for SplashPage {
@@ -26,6 +26,22 @@ impl Default for SplashPage {
             splash_logo: "icon".to_string(),
             splash_footer: "".to_string(),
             splash_duration: 5.0,
+        }
+    }
+}
+
+impl SplashPage {
+    pub fn new(
+        splash_header: &str,
+        splash_logo: &str,
+        splash_footer: &str,
+        splash_duration: f32,
+    ) -> Self {
+        Self {
+            splash_header: splash_header.to_string(),
+            splash_logo: splash_logo.to_string(),
+            splash_footer: splash_footer.to_string(),
+            splash_duration,
         }
     }
 }
@@ -49,6 +65,14 @@ impl Default for CodexSettings {
     }
 }
 impl CodexSettings {
+    pub fn new(title: String, button_texture: Option<String>, button_color: Color) -> Self {
+        Self {
+            title,
+            button_texture:button_texture.unwrap_or_default(),
+            button_color,
+            ..default()
+        }
+    }
     pub fn with_splash(&mut self, splash_pages: Vec<SplashPage>) -> Self {
         self.splash_pages = splash_pages;
         self.clone()

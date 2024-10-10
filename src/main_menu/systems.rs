@@ -1,7 +1,9 @@
 use bevy::{color::palettes::css::BLACK, prelude::*, window::PrimaryWindow};
 
 use bevy_lunex::{
-    prelude::{MainUi, Pickable, Rl, UiNodeTreeInitTrait, UiTree}, Base, PackageLayout, SourceFromCamera, UiClickEvent, UiImage2dBundle, UiLayout, UiLink, UiTreeBundle
+    prelude::{MainUi, Pickable, Rl, UiNodeTreeInitTrait, UiTree},
+    Base, PackageLayout, SourceFromCamera, UiClickEvent, UiImage2dBundle, UiLayout, UiLink,
+    UiTreeBundle,
 };
 
 use crate::{
@@ -29,7 +31,9 @@ pub fn build_main_menu(
             let r_size = (resolution.width(), resolution.height());
             commands
                 .entity(route_entity)
-                .insert(SpatialBundle::default())
+                .insert((
+                    SpatialBundle::default(),
+                ))
                 .with_children(|route| {
                     route
                         .spawn((

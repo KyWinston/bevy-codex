@@ -1,0 +1,19 @@
+<!-- menu.html -->
+<template>
+  <property name="title">My Game</property>
+  <node width="100%" height="100%">
+    <image
+      position="absolute"
+      display="block"
+      src="Level_base_diffuse.png"
+      width="100%"
+      height="100%"
+    >
+      <text margin="10% 0 0 20%" font_size="75px">{title}</text>
+      <navlink text="Start Game" action="start_game" />
+      <navlink text="Settings" action="go_to_settings" />
+      <navlink text="Quit" action="quit_game" />
+      >
+    </image>
+  </node>
+</template>

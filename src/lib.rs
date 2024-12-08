@@ -1,14 +1,14 @@
 use bevy::prelude::*;
-use bevy_easy_config::EasyConfigPlugin;
-use bevy_lunex::{UiDefaultPlugins, UiGenericPlugins};
-use components::Ui3d;
-use events::SelectEvent;
+use bevy_hui::{
+    prelude::{AutoLoadState, HuiAutoLoadPlugin},
+    HuiPlugin,
+};
 use hud::HudPlugin;
 use loading::LoadingPlugin;
 use main_menu::MainMenuPlugin;
 use pause::PausePlugin;
 use prelude::*;
-use resources::{CodexSettings, GameSettings};
+use resources::CodexSettings;
 
 // use settings::SettingsUiPlugin;
 use splash::SplashReelPlugin;
@@ -17,7 +17,6 @@ use widgets::WidgetPlugins;
 
 pub mod prelude {
     use bevy::{prelude::Component, reflect::Reflect, state::state::States};
-
     use crate::resources::CodexSettings;
 
     #[derive(Default, States, Debug, Reflect, Hash, Eq, PartialEq, Clone)]
@@ -47,37 +46,33 @@ pub mod prelude {
 }
 
 pub mod components;
-pub mod events;
 pub mod hud;
 pub mod loading;
 pub mod main_menu;
-pub mod pause;
-pub mod resources;
-pub mod settings;
 pub mod splash;
-pub mod styles;
-pub mod systems;
+pub mod pause;
 pub mod widgets;
+pub mod resources;
+pub mod systems;
 
 impl Plugin for UiScreensPlugin {
     fn build(&self, app: &mut App) {
-        app.add_event::<SelectEvent>()
-            .insert_resource::<CodexSettings>(self.config.clone())
+        app.insert_resource::<CodexSettings>(self.config.clone())
             .add_plugins((
-                EasyConfigPlugin::<GameSettings>::new(self.game_settings_folder.clone() + ".ron"),
+                // EasyConfigPlugin::<GameSettings>::new(self.game_settings_folder.clone() + ".ron"),
                 MainMenuPlugin,
                 PausePlugin,
                 // SettingsUiPlugin,
                 SplashReelPlugin,
-                HudPlugin,
                 WidgetPlugins,
-                UiDefaultPlugins,
+                HudPlugin,
+                HuiPlugin,
+                HuiAutoLoadPlugin::new(&["widgets"]),
                 LoadingPlugin,
-                UiGenericPlugins::<Ui3d>::new(),
             ))
             .init_state::<SimulationState>()
             .init_state::<UiState>()
-            .add_systems(Startup, init_ui_cam)
+            .add_systems(OnEnter(AutoLoadState::Finished), init_ui_cam)
             .add_systems(Update, exit);
     }
 }

@@ -1,7 +1,7 @@
 use bevy::prelude::*;
-use bevy_lunex::UiSystems;
-use systems::build_hud;
+use systems::open_hud;
 
+use crate::SimulationState;
 
 pub mod components;
 pub mod systems;
@@ -10,6 +10,6 @@ pub struct HudPlugin;
 
 impl Plugin for HudPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Update, build_hud.before(UiSystems::Compute));
+        app.add_systems(OnEnter(SimulationState::Running), open_hud);
     }
 }

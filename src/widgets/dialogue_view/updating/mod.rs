@@ -3,7 +3,10 @@ use bevy_yarnspinner::{events::*, prelude::*};
 use events::SpeakerChangeEvent;
 use systems::{continue_dialogue, hide_dialog, present_line, present_options, show_dialog};
 
-use super::{typewriter::{resources::Typewriter, systems::spawn}, DialogueViewSystemSet};
+use super::{
+    typewriter::{resources::Typewriter, systems::spawn},
+    DialogueViewSystemSet,
+};
 
 pub mod events;
 pub mod systems;
@@ -12,10 +15,9 @@ pub fn ui_updating_plugin(app: &mut App) {
         Update,
         (
             hide_dialog,
-            show_dialog.run_if(on_event::<DialogueStartEvent>()),
-            present_line
-                .run_if(resource_exists::<Typewriter>.and_then(on_event::<PresentLineEvent>())),
-            present_options.run_if(on_event::<PresentOptionsEvent>()),
+            show_dialog.run_if(on_event::<DialogueStartEvent>),
+            present_line.run_if(resource_exists::<Typewriter>.and(on_event::<PresentLineEvent>)),
+            present_options.run_if(on_event::<PresentOptionsEvent>),
             continue_dialogue.run_if(resource_exists::<Typewriter>),
         )
             .chain()

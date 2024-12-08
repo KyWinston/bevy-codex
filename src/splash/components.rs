@@ -1,4 +1,6 @@
 use bevy::prelude::*;
+use std::time::Duration;
+
 
 // Tag component used to tag entities added on the splash screen
 #[derive(Component, Debug, Default, Clone, PartialEq)]
@@ -7,8 +9,17 @@ pub struct SplashScreen;
 // Tag component used to tag entities added on the splash screen
 #[derive(Component, Debug, Default, Clone, PartialEq)]
 pub struct SplashUi;
-// Newtype to use a `Timer` for this screen as a resource
-#[derive(Resource, Deref, DerefMut)]
-pub struct SplashTimer(pub Timer);
 
+#[derive(Clone)]
+pub struct SplashItem {
+    pub tint: Color,
+    pub width: Val,
+    pub height: Val,
+    // pub ease_function: EaseMethod,
+    pub duration: Duration,
+    pub is_static: bool,
+}
 
+// Internal components for system logic
+#[derive(Component)]
+pub struct ClearSplash;

@@ -1,5 +1,4 @@
 use bevy::prelude::*;
-use bevy::window::PrimaryWindow;
 use bevy_yarnspinner::prelude::*;
 use events::HasSelectedOptionEvent;
 use resource::OptionSelection;
@@ -20,7 +19,7 @@ pub fn option_selection_plugin(app: &mut App) {
             select_option
                 .run_if(
                     resource_exists::<OptionSelection>
-                        .and_then(any_with_component::<PrimaryWindow>),
+                        // .and(any_with_component::<Window>),
                 )
                 .before(despawn),
             despawn_options,

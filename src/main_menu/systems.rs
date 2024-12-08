@@ -1,111 +1,33 @@
-use bevy::{color::palettes::css::BLACK, prelude::*, window::PrimaryWindow};
-
-use bevy_lunex::{
-    prelude::{MainUi, Pickable, Rl, UiNodeTreeInitTrait, UiTree},
-    Base, PackageLayout, SourceFromCamera, UiClickEvent, UiImage2dBundle, UiLayout, UiLink,
-    UiTreeBundle,
-};
-
-use crate::{
-    loading::components::Loading,
-    main_menu::components::MainMenuButton,
-    resources::CodexSettings,
-    settings::components::SettingsPg,
-    widgets::{
-        button::components::{CustomButton, CustomButtonRef},
-        panel::components::Panel,
-    },
-};
+use bevy::prelude::*;
+use bevy_hui::prelude::{HtmlFunctions, HtmlNode, TemplateProperties};
 
 use super::components::MainMenu;
+use crate::{components::Quit, resources::CodexSettings, UiState};
 
-pub fn build_main_menu(
-    mut commands: Commands,
-    asset_server: Res<AssetServer>,
-    query: Query<Entity, Added<MainMenu>>,
-    window: Query<&Window, With<PrimaryWindow>>,
-    codex_settings: Res<CodexSettings>,
-) {
-    for route_entity in &query {
-        if let Ok(resolution) = window.get_single() {
-            let r_size = (resolution.width(), resolution.height());
-            commands
-                .entity(route_entity)
-                .insert((
-                    SpatialBundle::default(),
-                ))
-                .with_children(|route| {
-                    route
-                        .spawn((
-                            UiTreeBundle::<MainUi>::from(UiTree::new2d("MainMenu")),
-                            SourceFromCamera,
-                        ))
-                        .with_children(|ui| {
-                            let root = UiLink::<MainUi>::path("Root");
-                            ui.spawn((
-                                root.clone(),
-                                UiLayout::window().size(r_size).pack::<Base>(),
-                            ));
-                            let background = UiLink::<MainUi>::path("Background");
-
-                            ui.spawn((
-                                background.clone(),
-                                UiLayout::window_full().pack::<Base>(),
-                                Pickable::IGNORE,
-                                UiImage2dBundle::from(asset_server.load("Level_base_diffuse.png")),
-                            ));
-                            let content = vec![
-                                CustomButtonRef {
-                                    link: MainMenuButton::NewGame.str(),
-                                },
-                                CustomButtonRef {
-                                    link: MainMenuButton::Settings.str(),
-                                },
-                                CustomButtonRef {
-                                    link: MainMenuButton::QuitGame.str(),
-                                },
-                            ];
-                            ui.spawn((
-                                background.add("Panel"),
-                                UiLayout::window()
-                                    .size(Rl((40.0, 80.0)))
-                                    .pos(Rl((10.0, 10.0)))
-                                    .pack::<Base>(),
-                                Panel {
-                                    text: Some(codex_settings.title.to_string()),
-                                    color: BLACK.into(),
-                                    content,
-                                    ..default()
-                                },
-                                Pickable::IGNORE,
-                            ));
-                        });
-                });
-        }
-    }
+pub fn go_to_main(mut commands: Commands, server: Res<AssetServer>, settings: Res<CodexSettings>) {
+    commands.spawn((
+        MainMenu,
+        HtmlNode(server.load("pages/menu.html")),
+        TemplateProperties::default().with("title", &settings.title),
+    ));
 }
 
-pub fn main_menu_button_clicked_system(
-    mut commands: Commands,
-    mut events: EventReader<UiClickEvent>,
-    query: Query<&CustomButton>,
-    menu_q: Query<Entity, With<MainMenu>>,
-    mut exit: EventWriter<bevy::app::AppExit>,
-) {
-    for event in events.read() {
-        if let Ok(ent) = menu_q.get_single() {
-            if let Ok(button) = query.get(event.target) {
-                if button.text == MainMenuButton::NewGame.str() {
-                    commands.entity(ent).despawn_recursive();
-                    commands.spawn(Loading(Some("Loading...".to_string())));
-                } else if button.text == MainMenuButton::Settings.str() {
-                    commands.entity(ent).despawn_recursive();
-                    commands.spawn(SettingsPg);
-                } else if button.text == MainMenuButton::QuitGame.str() {
-                    commands.entity(event.target).despawn_recursive();
-                    exit.send(bevy::app::AppExit::Success);
-                }
-            }
-        }
-    }
+pub fn register_menu_actions(mut html_funcs: HtmlFunctions) {
+    html_funcs.register(
+        "start_game",
+        |In(_): In<Entity>, mut state: ResMut<NextState<UiState>>| {
+            state.set(UiState::Loading);
+        },
+    );
+
+    html_funcs.register(
+        "go_to_settings",
+        |In(_): In<Entity>, mut state: ResMut<NextState<UiState>>| {
+            state.set(UiState::Settings);
+        },
+    );
+
+    html_funcs.register("quit_game", |In(_): In<Entity>, mut commands: Commands| {
+        commands.spawn(Quit);
+    });
 }

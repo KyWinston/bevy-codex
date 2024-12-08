@@ -4,7 +4,7 @@ use bevy_yarnspinner::{
     prelude::DialogueRunner,
 };
 
-use crate::dialogue_view::{
+use crate::widgets::dialogue_view::{
     options_selection::resource::OptionSelection,
     setup::components::{DialogueContinueNode, DialogueNameNode, UiRootNode},
     typewriter::resources::Typewriter,
@@ -42,7 +42,7 @@ pub fn present_line(
         } else {
             String::new()
         };
-        name_node.single_mut().sections[0].value = name;
+        name_node.single_mut().0 = name;
         typewriter.set_line(&event.line);
     }
 }

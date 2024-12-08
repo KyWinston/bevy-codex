@@ -1,0 +1,20 @@
+<!-- /assets/nav_button.html-->
+<template>
+  <property name="text">Click</property>
+  <property name="action">greet</property>
+  <property name="primary">rgb(0,0,0)</property>
+  <property name="secondary">rgb(255,255,255)</property>
+
+  <button
+    id="button"
+    background="{primary}"
+    border_radius="7px"
+    padding="10px"
+    margin="20% 30px"
+    height="10%"
+    width="20%"
+    on_press="{action}"
+  >
+    <text font_size="40px" font_color="{secondary}"> {text} </text>
+  </button>
+</template>

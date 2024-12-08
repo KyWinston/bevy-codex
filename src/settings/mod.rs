@@ -1,6 +1,5 @@
 use self::systems::build_settings;
 use bevy::prelude::*;
-use bevy_lunex::UiGenericPlugins;
 use components::SettingsPgUi;
 
 pub mod components;

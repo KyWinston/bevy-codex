@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 use bevy_yarnspinner::{events::*, prelude::*};
-use events::TypewriterFinishedEvent;
+use events::{TypewriterFinishedEvent, VBplayEvent};
 use resources::Typewriter;
 use systems::{bob_continue, despawn, send_finished_event, show_continue, spawn, write_text};
 
@@ -17,8 +17,8 @@ pub fn typewriter_plugin(app: &mut App) {
         Update,
         (
             send_finished_event.run_if(resource_exists::<Typewriter>),
-            despawn.run_if(on_event::<DialogueCompleteEvent>()),
-            spawn.run_if(on_event::<DialogueStartEvent>()),
+            despawn.run_if(on_event::<DialogueCompleteEvent>),
+            spawn.run_if(on_event::<DialogueStartEvent>),
             write_text.run_if(resource_exists::<Typewriter>),
             show_continue.run_if(resource_exists::<Typewriter>),
             bob_continue,
@@ -27,5 +27,6 @@ pub fn typewriter_plugin(app: &mut App) {
             .after(YarnSpinnerSystemSet)
             .in_set(DialogueViewSystemSet),
     )
+    .add_event::<VBplayEvent>()
     .add_event::<TypewriterFinishedEvent>();
 }

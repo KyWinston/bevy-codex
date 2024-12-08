@@ -1,10 +1,5 @@
-use bevy::{
-    color::palettes::css::{BLUE, RED},
-    prelude::*,
-};
-use bevy_codex::{
-    hud::components::{Hud, SurfaceHud}, prelude::*, resources::CodexSettings, widgets::{panel::components::Panel, status_bar::components::StatusBar}
-};
+use bevy::prelude::*;
+use bevy_codex::{hud::components::Hud, prelude::*, resources::CodexSettings};
 
 #[derive(Resource)]
 struct LoadTimer(Timer);
@@ -14,7 +9,7 @@ fn main() {
         .add_plugins((
             DefaultPlugins,
             UiScreensPlugin {
-                config:CodexSettings::default(),
+                config: CodexSettings::default(),
                 game_settings_folder: "game_settings".to_string(),
             },
         ))
@@ -43,23 +38,10 @@ fn move_to_hud(
     }
 }
 
-fn show_hud(hud_q: Query<Entity, Added<SurfaceHud>>, mut commands: Commands) {
-    for q in &hud_q {
-        let mut bars = vec![];
-        let mut offset = 10.0;
-        for (label, color) in [("Health".into(), RED.into()), ("Mana".into(), BLUE.into())] {
-            bars.push(StatusBar {
-                label,
-                color,
-                top_left: (10.0, 0.0 + offset),
-                bottom_right: (100.0, 30.0 + offset),
-                ..default()
-            });
-            offset += 40.0;
-        }
-        commands.entity(q).insert(Panel {
-            content: bars,
-            ..default()
-        });
-    }
+fn show_hud(
+    mut state: ResMut<NextState<SimulationState>>,
+    mut ui_state: ResMut<NextState<UiState>>,
+) {
+    state.set(SimulationState::Running);
+    ui_state.set(UiState::Hud);
 }

@@ -1,11 +1,4 @@
-use bevy::{
-    prelude::Image,
-    render::{
-        render_asset::RenderAssetUsages,
-        texture::{CompressedImageFormats, ImageSampler, ImageType},
-    },
-    text::Font,
-};
+use bevy::{image::{CompressedImageFormats, ImageSampler, ImageType}, prelude::Image, render::render_asset::RenderAssetUsages, text::Font};
 
 pub fn load_font(bytes: &[u8], _path: String) -> Font {
     Font::try_from_bytes(bytes.to_vec()).unwrap()

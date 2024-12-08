@@ -1,32 +1,28 @@
 use bevy::{
-    color::palettes::css::TOMATO, prelude::*, utils::hashbrown::HashMap, window::PrimaryWindow,
+    color::palettes::css::TOMATO, prelude::*, utils::hashbrown::HashMap, winit::cursor::CursorIcon,
 };
 use bevy_yarnspinner::{events::DialogueCompleteEvent, prelude::DialogueRunner};
 
-use crate::dialogue_view::{
-    setup::{
-        components::{DialogueNode, OptionButton, OptionsNode, UiRootNode},
-        systems::spawn_options,
-    },
+use crate::widgets::dialogue_view::{
+    setup::components::{DialogueNode, OptionButton, OptionsNode, UiRootNode},
     typewriter::{events::TypewriterFinishedEvent, resources::Typewriter},
 };
 
 use super::{events::HasSelectedOptionEvent, resource::OptionSelection, NUMBER_KEYS, NUMPAD_KEYS};
 
 pub fn create_options(
-    option_selection: Res<OptionSelection>,
+    _option_selection: Res<OptionSelection>,
     mut commands: Commands,
     children: Query<&Children>,
-    mut options_node: Query<(Entity, &mut Style, &mut Visibility), With<OptionsNode>>,
+    mut options_node: Query<(Entity, &mut Visibility), With<OptionsNode>>,
     mut root_visibility: Query<&mut Visibility, (With<UiRootNode>, Without<OptionsNode>)>,
 ) {
-    let (entity, mut style, mut visibility) = options_node.single_mut();
-    style.display = Display::Flex;
+    let (entity, mut visibility) = options_node.single_mut();
     *visibility = Visibility::Hidden;
     if children.iter_descendants(entity).next().is_none() {
         *root_visibility.single_mut() = Visibility::Inherited;
-        let mut entity_commands = commands.entity(entity);
-        spawn_options(&mut entity_commands, &option_selection.options);
+        let _entity_commands = commands.entity(entity);
+        // spawn_options(&mut entity_commands, &option_selection.options);
     }
 }
 
@@ -51,7 +47,7 @@ pub fn select_option(
     mut dialogue_runners: Query<&mut DialogueRunner>,
     mut text: Query<&mut Text, Without<DialogueNode>>,
     option_selection: Res<OptionSelection>,
-    mut windows: Query<&mut Window, With<PrimaryWindow>>,
+    mut windows: Query<&mut Window>,
     mut selected_option_event: EventWriter<HasSelectedOptionEvent>,
 ) {
     if !typewriter.is_finished() {
@@ -75,15 +71,14 @@ pub fn select_option(
         let (color, icon) = match *interaction {
             Interaction::Pressed if selection.is_none() => {
                 selection = Some(button.0);
-                (TOMATO.into(), CursorIcon::Default)
+                (TOMATO.into(), CursorIcon::default())
             }
-            Interaction::Hovered => (Color::WHITE, CursorIcon::Pointer),
-            _ => (TOMATO.into(), CursorIcon::Default),
+            Interaction::Hovered => (Color::WHITE, CursorIcon::default()),
+            _ => (TOMATO.into(), CursorIcon::default()),
         };
         window.cursor.icon = icon;
         let text_entity = children.iter().find(|&e| text.contains(*e)).unwrap();
         let mut text = text.get_mut(*text_entity).unwrap();
-        text.sections[1].style.color = color;
     }
     let has_selected_id = selection.is_some();
     if let Some(id) = selection {
@@ -100,7 +95,7 @@ pub fn despawn_options(
     mut has_selected_option_event: EventReader<HasSelectedOptionEvent>,
     mut dialogue_complete_event: EventReader<DialogueCompleteEvent>,
     mut commands: Commands,
-    mut options_node: Query<(Entity, &mut Style, &mut Visibility), With<OptionsNode>>,
+    mut options_node: Query<(Entity, &mut Visibility), With<OptionsNode>>,
     mut dialogue_node_text: Query<&mut Text, With<DialogueNode>>,
     mut root_visibility: Query<&mut Visibility, (With<UiRootNode>, Without<OptionsNode>)>,
 ) {
@@ -112,9 +107,8 @@ pub fn despawn_options(
     has_selected_option_event.clear();
     dialogue_complete_event.clear();
     commands.remove_resource::<OptionSelection>();
-    let (entity, mut style, mut visibility) = options_node.single_mut();
+    let (entity, mut visibility) = options_node.single_mut();
     commands.entity(entity).despawn_descendants();
-    style.display = Display::None;
     *visibility = Visibility::Hidden;
     *dialogue_node_text.single_mut() = Text::default();
     *root_visibility.single_mut() = Visibility::Hidden;

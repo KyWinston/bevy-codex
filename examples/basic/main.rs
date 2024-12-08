@@ -1,8 +1,5 @@
 use bevy::prelude::*;
-use bevy_codex::{
-    prelude::*,
-    resources::{CodexSettings, SplashPage},
-};
+use bevy_codex::{prelude::*, resources::CodexSettings};
 
 #[derive(Resource)]
 struct LoadTimer(Timer);
@@ -13,15 +10,8 @@ fn main() {
             UiScreensPlugin {
                 config: CodexSettings {
                     title: "basic ui".to_string(),
-                    debug: true,
                     ..default()
-                }
-                .with_splash(vec![SplashPage::new(
-                    "Geksupport",
-                    "branding/icon",
-                    "Presents",
-                    2.0,
-                )]),
+                },
                 game_settings_folder: "game_settings".to_string(),
             },
         ))

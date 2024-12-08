@@ -11,29 +11,38 @@ exclude = ["/examples"]
 
 [dependencies]
 serde = { version = "1.0.99", features = ["derive"] }
-bevy = { version = "0.14.2", default-features = false, features = [
+bevy = { version = "0.15.0", default-features = false, features = [
     "bevy_asset",
     "bevy_state",
-    "bevy_core_pipeline",
     "png",
 ] }
-bevy_lunex = "0.2.4"
 bevy_easy_config = "0.2.0"
-bevy_splash_screen = { git = "https://github.com/KyWinston/bevy_splash_screen", branch = "main" }
-bevy_tweening = { git = "https://github.com/SergioRibera/bevy_tweening", branch = "infinite_mirrored" }
-bevy_yarnspinner = "0.3.1"
+# bevy_tweening = { git = "https://github.com/SergioRibera/bevy_tweening", branch = "infinite_mirrored" }
+bevy_hui = "0.2"
+# bevy_hui = { path = "../bevy_hui/crates/bevy_hui" }
+unicode-segmentation = "1.12.0"
 
 [dev-dependencies]
+bevy = { version = "0.15.0", default-features = false, features = [
+    "bevy_asset",
+    "bevy_state",
+    "bevy_render",
+    "file_watcher",
+    "multi_threaded",
+    "default_font",
+    "png",
+] }
 cargo-husky = { version = "1", features = [
     "precommit-hook",
     "run-cargo-test",
     "run-cargo-clippy",
 ] }
 
-[target.'cfg(target_os = "linux")'.dev-dependencies.bevy]
-version = "0.14.2"
-features = ["x11", "wayland"]
+[target.'cfg(target_os = "linux")'.dependencies.bevy]
+features = ["x11", "wayland", "bevy_winit"]
+version = "0.15.0"
 default-features = false
+
 
 # Enable a small amount of optimization in debug mode
 [profile.dev]
@@ -46,3 +55,7 @@ opt-level = 3
 [profile.release]
 codegen-units = 1
 strip = true
+
+[package.metadata.android.sdk]
+target_sdk_version = 34
+min_sdk_version = 33

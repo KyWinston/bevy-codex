@@ -16,7 +16,7 @@ pub fn build_settings(
             let r_size = (resolution.width(), resolution.height());
             commands
                 .entity(route_entity)
-                .insert(SpatialBundle::default())
+                .insert(Transform::default())
                 .with_children(|route| {
                     route
                         .spawn((

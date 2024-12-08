@@ -11,14 +11,14 @@ pub fn ui_assets_plugin(app: &mut App) {
     load_internal_binary_asset!(
         app,
         MEDIUM,
-        "../../../assets/fonts/FiraSans-Bold.ttf",
+        "../../../../assets/fonts/FiraSans-Bold.ttf",
         load_font
     );
 
     load_internal_binary_asset!(
         app,
         CONTINUE_INDICATOR,
-        "../../../assets/arrow_basic_s.png",
+        "../../../../assets/images/ui/arrow_basic_s.png",
         load_image
     );
 }

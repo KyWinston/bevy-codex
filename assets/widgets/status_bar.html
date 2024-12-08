@@ -1,0 +1,33 @@
+<template>
+    <property name="type">health</property>
+    <property name="primary">red</property>
+    <property name="secondary">white</property>
+    <node padding="10px">
+        <section
+            id="button"
+            padding="5px"
+            background="{primary}"
+            border_color="{primary}"
+            delay="0.2s"
+            ease="cubic_in"
+            height="80px"
+            width="210px"
+            border="10px"
+            border_radius="30px"
+            hover:height="100px"
+            hover:background="{secondary}"
+            hover:border_color="{secondary}"
+            hover:width="230px"
+            on_press="{action}"
+        >
+            <text
+                watch="button"
+                font_size="20"
+                font_color="#FFF"
+                hover:font_color="#752"
+            >
+                {text}
+            </text>
+        </section>
+    </node>
+</template>

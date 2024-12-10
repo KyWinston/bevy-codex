@@ -5,10 +5,27 @@ use bevy::{
 };
 use bevy_hui::prelude::HtmlNode;
 
-use super::{components::ClearSplash, resources::SplashScreenSkipable};
+use crate::UiState;
+
+use super::{
+    components::ClearSplash,
+    resources::{SplashScreenSkipable, SplashTimer},
+};
 
 pub fn create_splash(mut cmd: Commands, assets: Res<AssetServer>) {
+    cmd.insert_resource(SplashTimer(Timer::from_seconds(2.0, TimerMode::Once)));
     cmd.spawn(HtmlNode(assets.load("pages/splash.html")));
+}
+
+pub fn splash_timer(
+    time: Res<Time>,
+    mut timer: ResMut<SplashTimer>,
+    mut state: ResMut<NextState<UiState>>,
+) {
+    timer.0.tick(time.delta());
+    if timer.0.finished() {
+        state.set(UiState::MainMenu);
+    }
 }
 
 pub fn splash_skip<S: FreelyMutableState>(

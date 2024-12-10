@@ -1,0 +1,195 @@
+<!-- use bevy::{
+    color::palettes::css::{ALICE_BLUE, TOMATO},
+    prelude::*,
+};
+
+use crate::widgets::dialogue_view::widgets::MEDIUM;
+
+pub const DIALOG_WIDTH: f32 = 800.0 * 0.8;
+pub const TEXT_BORDER_HORIZONTAL: f32 = 120.0;
+pub const TEXT_BORDER_TOP: f32 = 30.0;
+pub const TEXT_BORDER_BOTTOM: f32 = TEXT_BORDER_TOP + 10.0;
+
+pub fn standard() -> Style {
+    Style {
+        max_width: Val::Px(DIALOG_WIDTH - 2.0 * TEXT_BORDER_HORIZONTAL),
+        ..default()
+    }
+}
+
+pub fn options() -> Style {
+    const INDENT_MODIFIER: f32 = 1.0;
+    Style {
+        margin: UiRect::horizontal(Val::Px((INDENT_MODIFIER - 1.0) * TEXT_BORDER_HORIZONTAL)),
+        max_width: Val::Px(DIALOG_WIDTH - 2.0 * INDENT_MODIFIER * TEXT_BORDER_HORIZONTAL),
+        ..default()
+    }
+}
+
+pub fn text_standard() -> TextStyle {
+    TextStyle {
+        font: MEDIUM,
+        font_size: 20.0,
+        color: Color::WHITE,
+    }
+}
+
+pub fn text_name() -> TextStyle {
+    TextStyle {
+        font: MEDIUM,
+        font_size: 18.0,
+        ..text_standard()
+    }
+}
+
+pub fn option_id() -> TextStyle {
+    TextStyle {
+        font: MEDIUM,
+        color: ALICE_BLUE.into(),
+        ..option_text()
+    }
+}
+
+pub fn option_text() -> TextStyle {
+    TextStyle {
+        font_size: 18.0,
+        color: TOMATO.into(),
+        ..text_standard()
+    }
+} -->
+
+<!-- style: Style {
+    display: Display::Grid,
+    width: Val::Percent(100.0),
+    height: Val::Percent(100.0),
+    align_content: AlignContent::End,
+    justify_content: JustifyContent::SpaceAround,
+    grid_auto_flow: GridAutoFlow::Row,
+    grid_template_columns: vec![RepeatedGridTrack::minmax(
+        1,
+        MinTrackSizingFunction::Auto,
+        MaxTrackSizingFunction::Px(DIALOG_WIDTH),
+    )],
+    grid_auto_rows: vec![GridTrack::min_content()],
+    ..default()
+},
+visibility: Visibility::Hidden,
+..default()
+},
+UiRootNode,
+))
+.with_children(|parent| {
+parent.spawn((
+fmt_name("name"),
+TextBundle {
+    text: Text::from_section(String::new(), text_name()),
+    style: Style {
+        margin: UiRect {
+            left: Val::Px(TEXT_BORDER_HORIZONTAL / 2.0),
+            bottom: Val::Px(-8.0),
+            ..default()
+        },
+        ..default()
+    },
+    z_index: ZIndex::Local(1),
+    ..default()
+},
+DialogueNameNode,
+Label,
+));
+parent
+.spawn((
+    fmt_name("dialogue"),
+    NodeBundle {
+        style: Style {
+            flex_direction: FlexDirection::Column,
+            justify_content: JustifyContent::SpaceAround,
+            align_items: AlignItems::FlexStart,
+            padding: UiRect {
+                top: Val::Px(TEXT_BORDER_TOP),
+                bottom: Val::Px(TEXT_BORDER_BOTTOM),
+                left: Val::Px(TEXT_BORDER_HORIZONTAL),
+                right: Val::Px(TEXT_BORDER_HORIZONTAL),
+            },
+            ..default()
+        },
+        background_color: Color::BLACK.with_alpha(0.8).into(),
+        border_radius: BorderRadius::all(Val::Px(20.0)),
+        ..default()
+    },
+))
+.with_children(|parent| {
+    parent.spawn((
+        fmt_name("text"),
+        TextBundle::from_section(String::new(), text_standard())
+            .with_style(standard()),
+        DialogueNode,
+        Label,
+    ));
+})
+.with_children(|parent| {
+    // Options
+    parent.spawn((
+        fmt_name("options"),
+        NodeBundle {
+            style: Style {
+                display: Display::None,
+                flex_direction: FlexDirection::Column,
+                justify_content: JustifyContent::FlexEnd,
+                align_items: AlignItems::FlexStart,
+                margin: UiRect::top(Val::Px(20.0)),
+                ..default()
+            },
+            visibility: Visibility::Hidden,
+            ..default()
+        },
+        OptionsNode,
+    ));
+});
+parent.spawn((
+fmt_name("continue indicator"),
+ImageBundle {
+    image: UiImage {
+        texture: CONTINUE_INDICATOR,
+        ..default()
+    },
+    style: Style {
+        justify_self: JustifySelf::Center,
+        align_self: AlignSelf::Center,
+        margin: UiRect {
+            top: Val::Px(-18.),
+            bottom: Val::Px(15.),
+            ..default()
+        },
+        ..default()
+    },
+    z_index: ZIndex::Local(1),
+    visibility: Visibility::Hidden,
+    ..default()
+},
+DialogueContinueNode,
+));
+});
+}
+ -->
+<!-- /assets/nav_button.html-->
+<template>
+    <property name="text">Click</property>
+    <property name="action">greet</property>
+    <property name="primary">rgb(0,0,0)</property>
+    <property name="secondary">rgb(255,255,255)</property>
+  
+    <button
+      id="button"
+      background="{primary}"
+      border_radius="7px"
+      padding="10px"
+      margin="20% 30px"
+      height="10%"
+      width="20%"
+      on_press="{action}"
+    >
+      <text font_size="40px" font_color="{secondary}"> {text} </text>
+    </button>
+  </template>
+  

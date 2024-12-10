@@ -1,8 +1,5 @@
 use bevy::prelude::*;
-use bevy_hui::{
-    prelude::{AutoLoadState, HuiAutoLoadPlugin},
-    HuiPlugin,
-};
+use bevy_hui::{prelude::HuiAutoLoadPlugin, HuiPlugin};
 use hud::HudPlugin;
 use loading::LoadingPlugin;
 use main_menu::MainMenuPlugin;
@@ -12,12 +9,12 @@ use resources::CodexSettings;
 
 // use settings::SettingsUiPlugin;
 use splash::SplashReelPlugin;
-use systems::{exit, init_ui_cam};
+use systems::exit;
 use widgets::WidgetPlugins;
 
 pub mod prelude {
-    use bevy::{prelude::Component, reflect::Reflect, state::state::States};
     use crate::resources::CodexSettings;
+    use bevy::{prelude::Component, reflect::Reflect, state::state::States};
 
     #[derive(Default, States, Debug, Reflect, Hash, Eq, PartialEq, Clone)]
     pub enum SimulationState {
@@ -49,11 +46,11 @@ pub mod components;
 pub mod hud;
 pub mod loading;
 pub mod main_menu;
-pub mod splash;
 pub mod pause;
-pub mod widgets;
 pub mod resources;
+pub mod splash;
 pub mod systems;
+pub mod widgets;
 
 impl Plugin for UiScreensPlugin {
     fn build(&self, app: &mut App) {
@@ -72,7 +69,6 @@ impl Plugin for UiScreensPlugin {
             ))
             .init_state::<SimulationState>()
             .init_state::<UiState>()
-            .add_systems(OnEnter(AutoLoadState::Finished), init_ui_cam)
             .add_systems(Update, exit);
     }
 }

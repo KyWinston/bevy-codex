@@ -29,6 +29,7 @@ bevy = { version = "0.15.0", default-features = false, features = [
     "bevy_render",
     "file_watcher",
     "multi_threaded",
+    "bevy_winit",
     "default_font",
     "png",
 ] }
@@ -39,7 +40,7 @@ cargo-husky = { version = "1", features = [
 ] }
 
 [target.'cfg(target_os = "linux")'.dependencies.bevy]
-features = ["x11", "wayland", "bevy_winit"]
+features = ["x11", "wayland"]
 version = "0.15.0"
 default-features = false
 

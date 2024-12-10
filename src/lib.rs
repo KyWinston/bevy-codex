@@ -67,7 +67,7 @@ impl Plugin for UiScreensPlugin {
                 WidgetPlugins,
                 HudPlugin,
                 HuiPlugin,
-                HuiAutoLoadPlugin::new(&["widgets"]),
+                HuiAutoLoadPlugin::new(&["embedded://bevy-codex/widgets"]),
                 LoadingPlugin,
             ))
             .init_state::<SimulationState>()

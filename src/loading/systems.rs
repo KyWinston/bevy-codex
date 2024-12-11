@@ -7,6 +7,5 @@ pub fn load_game_screen(mut commands: Commands, asset_server: Res<AssetServer>) 
     commands.spawn((
         Loading(Some("...Loading".to_string())),
         HtmlNode(asset_server.load("pages/loading.html")),
-
     ));
 }

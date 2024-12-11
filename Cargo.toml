@@ -16,22 +16,17 @@ bevy = { version = "0.15.0", default-features = false, features = [
     "bevy_state",
     "png",
 ] }
-bevy_easy_config = "0.2.0"
-# bevy_tweening = { git = "https://github.com/SergioRibera/bevy_tweening", branch = "infinite_mirrored" }
-bevy_hui = "0.2"
-# bevy_hui = { path = "../bevy_hui/crates/bevy_hui" }
+
+bevy_hui = "0.2.1"
 unicode-segmentation = "1.12.0"
 
 [dev-dependencies]
 bevy = { version = "0.15.0", default-features = false, features = [
-    "bevy_asset",
-    "bevy_state",
     "bevy_render",
+    "bevy_window",
     "file_watcher",
     "multi_threaded",
-    "bevy_winit",
     "default_font",
-    "png",
 ] }
 cargo-husky = { version = "1", features = [
     "precommit-hook",
@@ -39,8 +34,8 @@ cargo-husky = { version = "1", features = [
     "run-cargo-clippy",
 ] }
 
-[target.'cfg(target_os = "linux")'.dependencies.bevy]
-features = ["x11", "wayland"]
+[target.'cfg(target_os = "linux")'.dev-dependencies.bevy]
+features = ["x11", "wayland", "bevy_winit"]
 version = "0.15.0"
 default-features = false
 

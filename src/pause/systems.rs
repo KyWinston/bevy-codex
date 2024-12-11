@@ -3,8 +3,10 @@ use bevy_hui::prelude::{HtmlFunctions, HtmlNode};
 
 use crate::{SimulationState, UiState};
 
+use super::components::PauseMenu;
+
 pub fn go_to_paused(mut commands: Commands, server: Res<AssetServer>) {
-    commands.spawn(HtmlNode(server.load("pages/pause.html")));
+    commands.spawn((PauseMenu, HtmlNode(server.load("pages/pause.html"))));
 }
 
 pub fn register_pause_actions(mut html_funcs: HtmlFunctions) {
@@ -23,9 +25,9 @@ pub fn register_pause_actions(mut html_funcs: HtmlFunctions) {
     );
 
     html_funcs.register(
-        "go_to_settings",
+        "return_to_menu",
         |In(_): In<Entity>, mut state: ResMut<NextState<UiState>>| {
-            state.set(UiState::Settings);
+            state.set(UiState::MainMenu);
         },
     );
 }

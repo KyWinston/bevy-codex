@@ -7,8 +7,6 @@ use pause::PausePlugin;
 use prelude::*;
 use resources::CodexSettings;
 
-// use settings::SettingsUiPlugin;
-use splash::SplashReelPlugin;
 use systems::exit;
 use widgets::WidgetPlugins;
 
@@ -56,11 +54,8 @@ impl Plugin for UiScreensPlugin {
     fn build(&self, app: &mut App) {
         app.insert_resource::<CodexSettings>(self.config.clone())
             .add_plugins((
-                // EasyConfigPlugin::<GameSettings>::new(self.game_settings_folder.clone() + ".ron"),
                 MainMenuPlugin,
                 PausePlugin,
-                // SettingsUiPlugin,
-                SplashReelPlugin,
                 WidgetPlugins,
                 HudPlugin,
                 HuiPlugin,

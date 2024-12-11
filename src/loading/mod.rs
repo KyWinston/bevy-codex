@@ -15,7 +15,7 @@ impl Plugin for LoadingPlugin {
             .add_systems(
                 OnExit(UiState::Loading),
                 |mut commands: Commands, node: Query<Entity, With<Loading>>| {
-                    for node in node.iter() {
+                    if let Ok(node) = node.get_single() {
                         commands.entity(node).despawn_recursive();
                     }
                 },

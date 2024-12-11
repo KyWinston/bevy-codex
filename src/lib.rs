@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use bevy_hui::{prelude::HuiAutoLoadPlugin, HuiPlugin};
+use bevy_hui::HuiPlugin;
 use hud::HudPlugin;
 use loading::LoadingPlugin;
 use main_menu::MainMenuPlugin;
@@ -64,7 +64,6 @@ impl Plugin for UiScreensPlugin {
                 WidgetPlugins,
                 HudPlugin,
                 HuiPlugin,
-                HuiAutoLoadPlugin::new(&["embedded://bevy-codex/widgets"]),
                 LoadingPlugin,
             ))
             .init_state::<SimulationState>()

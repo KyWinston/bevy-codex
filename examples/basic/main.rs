@@ -3,7 +3,6 @@ use bevy::{
     window::{PresentMode, WindowTheme},
 };
 use bevy_codex::{prelude::*, resources::CodexSettings};
-use bevy_hui::prelude::AutoLoadState;
 
 #[derive(Resource)]
 struct LoadTimer(Timer);
@@ -33,14 +32,14 @@ fn main() {
                 game_settings_folder: "game_settings".to_string(),
             },
         ))
-        .add_systems(OnEnter(AutoLoadState::Finished), add_camera)
+        .add_systems(Startup, add_camera)
         .add_systems(OnEnter(UiState::Loading), start_load)
         .add_systems(Update, move_to_hud.run_if(in_state(UiState::Loading)))
         .run();
 }
 
 fn add_camera(mut commands: Commands) {
-    commands.spawn(Camera2d);
+    commands.spawn(Camera3d::default());
 }
 
 fn start_load(mut commands: Commands) {

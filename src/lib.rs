@@ -7,6 +7,7 @@ use pause::PausePlugin;
 use prelude::*;
 use resources::CodexSettings;
 
+use splash::SplashReelPlugin;
 use systems::exit;
 use widgets::WidgetPlugins;
 
@@ -57,6 +58,7 @@ impl Plugin for UiScreensPlugin {
                 MainMenuPlugin,
                 PausePlugin,
                 WidgetPlugins,
+                SplashReelPlugin,
                 HudPlugin,
                 HuiPlugin,
                 LoadingPlugin,

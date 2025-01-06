@@ -12,7 +12,7 @@ use dialogue_text::{
 };
 use events::RunDialogueEvent;
 use options_selection::option_selection_plugin;
-use systems::{run_dialog, setup};
+use systems::{open_dialogue, setup};
 
 use widgets::ui_assets_plugin;
 
@@ -44,7 +44,7 @@ impl Plugin for DialogueViewPlugin {
                 (
                     show_dialog.run_if(on_event::<DialogueStartEvent>),
                     hide_dialog,
-                    run_dialog.run_if(resource_exists::<YarnProject>),
+                    open_dialogue.run_if(resource_exists::<YarnProject>),
                 ),
             )
             .add_plugins((

@@ -63,7 +63,7 @@ pub fn fmt_name(name: &str) -> Name {
     Name::new(format!("Yarn Spinner example dialogue view node: {name}"))
 }
 
-pub fn run_dialog(
+pub fn open_dialogue(
     mut commands: Commands,
     mut run_ev: EventReader<RunDialogueEvent>,
     project: Res<YarnProject>,

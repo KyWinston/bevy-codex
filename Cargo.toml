@@ -14,20 +14,25 @@ serde = { version = "1.0.99", features = ["derive"] }
 bevy = { version = "0.15.0", default-features = false, features = [
     "bevy_asset",
     "bevy_state",
+    "bevy_window",
+
     "png",
 ] }
 bevy_hui = "0.2.1"
+bevy_yarnspinner = { git = "https://github.com/wiggleforlife/YarnSpinner-Rust", branch = "main" }
 unicode-segmentation = "1.12.0"
 
 [dev-dependencies]
 bevy = { version = "0.15.0", default-features = false, features = [
     "bevy_render",
-    "bevy_window",
     "file_watcher",
     "multi_threaded",
     "default_font",
-    "tonemapping_luts"
+    "bevy_remote",
+    "tonemapping_luts",
 ] }
+leafwing_manifest = "0.3.0"
+
 cargo-husky = { version = "1", features = [
     "precommit-hook",
     "run-cargo-test",

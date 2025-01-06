@@ -1,17 +1,15 @@
 use bevy::{app::PluginGroupBuilder, prelude::*};
 use button::ButtonPlugin;
-// use dialogue::DialoguePlugin;
+use dialogue_view::DialogueViewPlugin;
 // use list::ListPlugin;
 // use panel::PanelPlugin;
 // use status_bar::StatusBarPlugin;
 
 pub mod button;
 // pub mod list;
+pub mod dialogue_view;
 // pub mod panel;
-// pub mod dialogue;
-// pub mod dialogue_view;
 // pub mod status_bar;
-
 
 pub struct WidgetPlugins;
 
@@ -22,6 +20,6 @@ impl PluginGroup for WidgetPlugins {
             // .add(PanelPlugin)
             .add(ButtonPlugin)
             // .add(StatusBarPlugin)
-            // .add(DialoguePlugin)
+            .add(DialogueViewPlugin)
     }
 }

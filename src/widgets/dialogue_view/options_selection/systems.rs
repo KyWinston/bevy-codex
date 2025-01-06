@@ -1,29 +1,46 @@
-use bevy::{
-    color::palettes::css::TOMATO, prelude::*, utils::hashbrown::HashMap, winit::cursor::CursorIcon,
+use bevy::{prelude::*, utils::hashbrown::HashMap};
+use bevy_hui::prelude::{HtmlNode, TemplateProperties};
+use bevy_yarnspinner::{
+    events::{DialogueCompleteEvent, PresentOptionsEvent},
+    prelude::{DialogueOption, DialogueRunner},
 };
-use bevy_yarnspinner::{events::DialogueCompleteEvent, prelude::DialogueRunner};
 
 use crate::widgets::dialogue_view::{
-    setup::components::{DialogueNode, OptionButton, OptionsNode, UiRootNode},
-    typewriter::{events::TypewriterFinishedEvent, resources::Typewriter},
+    components::{DialogueRootNode, OptionButton, OptionsNode},
+    dialogue_text::{events::TypewriterFinishedEvent, resources::Typewriter},
 };
 
 use super::{events::HasSelectedOptionEvent, resource::OptionSelection, NUMBER_KEYS, NUMPAD_KEYS};
 
 pub fn create_options(
-    _option_selection: Res<OptionSelection>,
+    option_selection: Res<OptionSelection>,
     mut commands: Commands,
     children: Query<&Children>,
+    assets: Res<AssetServer>,
     mut options_node: Query<(Entity, &mut Visibility), With<OptionsNode>>,
-    mut root_visibility: Query<&mut Visibility, (With<UiRootNode>, Without<OptionsNode>)>,
 ) {
     let (entity, mut visibility) = options_node.single_mut();
     *visibility = Visibility::Hidden;
     if children.iter_descendants(entity).next().is_none() {
-        *root_visibility.single_mut() = Visibility::Inherited;
-        let _entity_commands = commands.entity(entity);
-        // spawn_options(&mut entity_commands, &option_selection.options);
+        let mut entity_commands = commands.entity(entity);
+        spawn_options(&mut entity_commands, &option_selection.options, assets);
     }
+}
+
+fn spawn_options<'a, T>(entity_commands: &mut EntityCommands, options: T, assets: Res<AssetServer>)
+where
+    T: IntoIterator<Item = &'a DialogueOption>,
+    <T as IntoIterator>::IntoIter: 'a,
+{
+    entity_commands.with_children(|parent| {
+        for (i, option) in options.into_iter().enumerate() {
+            parent
+                .spawn((Button, OptionButton(option.id)))
+                .with_children(|parent| {
+                    parent.spawn((HtmlNode(assets.load("embedded://bevy_codex/widgets/dialogue_view/options_selection/single_option.html")),TemplateProperties::default().with("option_number", i.to_string().as_str()).with("option_text",&option.line.text)));
+                });
+        }
+    });
 }
 
 pub fn show_options(
@@ -35,19 +52,12 @@ pub fn show_options(
         *visibility = Visibility::Inherited;
     }
 }
-#[allow(clippy::type_complexity)]
-#[allow(clippy::too_many_arguments)]
+
 pub fn select_option(
     keys: Res<ButtonInput<KeyCode>>,
     typewriter: Res<Typewriter>,
-    mut buttons: Query<
-        (&Interaction, &OptionButton, &Children),
-        (With<Button>, Changed<Interaction>),
-    >,
     mut dialogue_runners: Query<&mut DialogueRunner>,
-    mut text: Query<&mut Text, Without<DialogueNode>>,
     option_selection: Res<OptionSelection>,
-    mut windows: Query<&mut Window>,
     mut selected_option_event: EventWriter<HasSelectedOptionEvent>,
 ) {
     if !typewriter.is_finished() {
@@ -66,20 +76,7 @@ pub fn select_option(
             break;
         }
     }
-    let mut window = windows.single_mut();
-    for (interaction, button, children) in buttons.iter_mut() {
-        let (color, icon) = match *interaction {
-            Interaction::Pressed if selection.is_none() => {
-                selection = Some(button.0);
-                (TOMATO.into(), CursorIcon::default())
-            }
-            Interaction::Hovered => (Color::WHITE, CursorIcon::default()),
-            _ => (TOMATO.into(), CursorIcon::default()),
-        };
-        window.cursor.icon = icon;
-        let text_entity = children.iter().find(|&e| text.contains(*e)).unwrap();
-        let mut text = text.get_mut(*text_entity).unwrap();
-    }
+
     let has_selected_id = selection.is_some();
     if let Some(id) = selection {
         for mut dialogue_runner in dialogue_runners.iter_mut() {
@@ -96,8 +93,7 @@ pub fn despawn_options(
     mut dialogue_complete_event: EventReader<DialogueCompleteEvent>,
     mut commands: Commands,
     mut options_node: Query<(Entity, &mut Visibility), With<OptionsNode>>,
-    mut dialogue_node_text: Query<&mut Text, With<DialogueNode>>,
-    mut root_visibility: Query<&mut Visibility, (With<UiRootNode>, Without<OptionsNode>)>,
+    mut dialogue_node_text: Query<&mut Text, With<DialogueRootNode>>,
 ) {
     let should_despawn =
         !has_selected_option_event.is_empty() || !dialogue_complete_event.is_empty();
@@ -110,6 +106,14 @@ pub fn despawn_options(
     let (entity, mut visibility) = options_node.single_mut();
     commands.entity(entity).despawn_descendants();
     *visibility = Visibility::Hidden;
-    *dialogue_node_text.single_mut() = Text::default();
-    *root_visibility.single_mut() = Visibility::Hidden;
+    for mut text in dialogue_node_text.iter_mut() {
+        *text = Text::default();
+    }
+}
+
+pub fn present_options(mut commands: Commands, mut events: EventReader<PresentOptionsEvent>) {
+    for event in events.read() {
+        let option_selection = OptionSelection::from_option_set(&event.options);
+        commands.insert_resource(option_selection);
+    }
 }

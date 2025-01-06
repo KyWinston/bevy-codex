@@ -1,8 +1,8 @@
 use bevy::{asset::embedded_asset, prelude::*};
 use systems::register_button;
 
-pub mod components;
-pub mod systems;
+mod systems;
+pub mod events;
 
 #[derive(Clone)]
 pub struct ButtonPlugin;

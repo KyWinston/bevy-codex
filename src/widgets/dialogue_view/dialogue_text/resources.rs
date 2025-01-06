@@ -1,24 +1,8 @@
 use std::time::Instant;
 
-use bevy::{prelude::*, utils::HashMap};
+use bevy::prelude::*;
 use bevy_yarnspinner::prelude::LocalizedLine;
 use unicode_segmentation::UnicodeSegmentation;
-
-#[derive(Default, Clone, Debug, Reflect)]
-pub enum EmotionState {
-    #[default]
-    Content,
-    Happy,
-    Scared,
-    Sad,
-    Angry,
-}
-
-#[derive(Debug, Clone, Resource, Reflect)]
-pub struct VocalBark(pub String, pub EmotionState);
-
-#[derive(Debug, Resource)]
-pub struct Barks(pub HashMap<String, VocalBark>);
 
 #[derive(Debug, Clone, PartialEq, Resource)]
 pub struct Typewriter {

@@ -1,11 +1,14 @@
-// use bevy::{asset::Asset, prelude::*, utils::HashMap};
+use bevy::prelude::*;
 // use leafwing_manifest::{identifier::Id, manifest::{Manifest, ManifestFormat}};
 // use lyrebird::soundfont::resources::SoundFont;
 // use serde::{Deserialize, Serialize};
 
+#[derive(Resource)]
+pub struct LoadTimer(pub Timer);
+
 // #[derive(Debug, Resource, PartialEq)]
 // pub struct SoundfontManifest {
-    // pub soundfonts: HashMap<Id<SoundFont>, SoundFont>,
+// pub soundfonts: HashMap<Id<SoundFont>, SoundFont>,
 // }
 
 // impl Manifest for SoundfontManifest {
@@ -45,7 +48,6 @@
 //         Ok(SoundfontManifest { soundfonts })
 //     }
 // }
-
 
 // #[derive(Debug, Asset, TypePath, Serialize, Deserialize, PartialEq)]
 // pub struct RawSoundfontManifest {

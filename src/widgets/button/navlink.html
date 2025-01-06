@@ -4,7 +4,7 @@
   <property name="action">greet</property>
   <property name="primary">rgb(0,0,0)</property>
   <property name="secondary">rgb(255,255,255)</property>
-
+  <property name="select_snd">thud.wav</property>
   <button
     id="button"
     background="{primary}"
@@ -14,6 +14,7 @@
     height="10%"
     width="20%"
     on_press="{action}"
+    tag:select_snd="{select_snd}"
   >
     <text font_size="40px" font_color="{secondary}"> {text} </text>
   </button>

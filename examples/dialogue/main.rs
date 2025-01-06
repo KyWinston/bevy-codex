@@ -1,15 +1,17 @@
 use bevy::{
+    color::palettes::css::WHITE,
     log::{Level, LogPlugin},
     prelude::*,
+    remote::{http::RemoteHttpPlugin, RemotePlugin},
 };
 
-// use leafwing_manifest::{
-//     asset_state::SimpleAssetState,
-//     plugin::{ManifestPlugin, RegisterManifest},
-// };
-// use lyrebird::LyrebirdPlugin;
-// use resources::SoundfontManifest;
-use systems::setup;
+use bevy_codex::{
+    prelude::{UiScreensPlugin, UiState},
+    resources::CodexSettings,
+};
+use bevy_yarnspinner::prelude::YarnProject;
+use leafwing_manifest::{asset_state::SimpleAssetState, plugin::ManifestPlugin};
+use systems::{move_to_hud, run_dialog, setup, start_load};
 
 pub mod resources;
 pub mod systems;
@@ -19,20 +21,30 @@ fn main() {
         .add_plugins((
             DefaultPlugins
                 .set(LogPlugin {
-                    level: Level::WARN,
+                    level: Level::INFO,
                     filter: "bevy_midi=debug".to_string(),
                     ..default()
                 })
                 .build(),
-            // LyrebirdPlugin,
-            // ManifestPlugin::<SimpleAssetState> {
-            //     automatically_advance_states: true,
-            //     _phantom: std::marker::PhantomData,
-            // },
+            ManifestPlugin::<SimpleAssetState> {
+                automatically_advance_states: true,
+                _phantom: std::marker::PhantomData,
+            },
+            RemotePlugin::default(),
+            RemoteHttpPlugin::default(),
+            UiScreensPlugin {
+                game_settings_folder: "".to_string(),
+                config: CodexSettings::new("dialogue".to_string(), None, WHITE.into()),
+            },
         ))
-        // .register_manifest::<SoundfontManifest>("soundfonts/soundfonts.ron")
         .add_systems(Startup, setup)
-        // .add_systems(OnEnter(SimpleAssetState::Ready), load_audio)
-        // .add_systems(Update, run_test_dialogue)
+        .add_systems(OnEnter(UiState::Loading), start_load)
+        .add_systems(
+            Update,
+            (
+                run_dialog.run_if(resource_exists::<YarnProject>),
+                move_to_hud.run_if(in_state(UiState::Loading)),
+            ),
+        )
         .run();
 }

@@ -119,9 +119,11 @@ pub fn present_line(
         } else {
             String::new()
         };
-        if let Ok(mut node) = texts.get_mut(name_node.single_mut()[0]) {
-            node.0 = name;
-            typewriter.set_line(&event.line);
-        }
+        if let Ok(child) = name_node.get_single_mut() {
+            if let Ok(mut node) = texts.get_mut(child[0]) {
+                node.0 = name;
+                typewriter.set_line(&event.line);
+            }
+        };
     }
 }

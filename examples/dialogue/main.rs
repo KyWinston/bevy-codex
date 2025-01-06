@@ -41,10 +41,7 @@ fn main() {
         .add_systems(OnEnter(UiState::Loading), start_load)
         .add_systems(
             Update,
-            (
-                run_dialog.run_if(resource_exists::<YarnProject>),
-                move_to_hud.run_if(in_state(UiState::Loading)),
-            ),
+            (run_dialog, move_to_hud.run_if(in_state(UiState::Loading))),
         )
         .run();
 }

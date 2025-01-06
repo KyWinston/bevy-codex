@@ -1,19 +1,11 @@
 use bevy::prelude::*;
-use bevy_codex::prelude::UiState;
-use bevy_yarnspinner::prelude::YarnProject;
+use bevy_codex::{prelude::UiState, widgets::dialogue_view::events::RunDialogueEvent};
 
 use crate::resources::LoadTimer;
 
-pub fn run_dialog(
-    mut commands: Commands,
-    project: Res<YarnProject>,
-    key: Res<ButtonInput<KeyCode>>,
-) {
+pub fn run_dialog(key: Res<ButtonInput<KeyCode>>, mut run_ev: EventWriter<RunDialogueEvent>) {
     if key.just_released(KeyCode::KeyP) {
-        let mut dialogue_runner = project.create_dialogue_runner();
-        dialogue_runner.start_node("Hello");
-        println!("");
-        commands.spawn(dialogue_runner);
+        run_ev.send(RunDialogueEvent("Hello".to_string()));
     }
 }
 

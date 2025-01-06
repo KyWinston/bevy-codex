@@ -37,7 +37,7 @@ where
             parent
                 .spawn((Button, OptionButton(option.id)))
                 .with_children(|parent| {
-                    parent.spawn((HtmlNode(assets.load("embedded://bevy_codex/widgets/dialogue_view/options_selection/single_option.html")),TemplateProperties::default().with("option_number", i.to_string().as_str()).with("option_text",&option.line.text)));
+                    parent.spawn((HtmlNode(assets.load("embedded://bevy_codex/widgets/dialogue_view/options_selection/single_option.html")),TemplateProperties::default().with("option_number", (i + 1).to_string().as_str()).with("option_text",&option.line.text)));
                 });
         }
     });

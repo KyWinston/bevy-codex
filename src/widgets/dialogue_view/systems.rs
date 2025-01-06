@@ -1,8 +1,12 @@
 use bevy::prelude::*;
 use bevy_hui::prelude::{HtmlComponents, TemplateProperties};
+use bevy_yarnspinner::prelude::YarnProject;
 
-use super::components::{
-    DialogueContinueNode, DialogueNameNode, DialogueRootNode, DialogueTextNode, OptionsNode,
+use super::{
+    components::{
+        DialogueContinueNode, DialogueNameNode, DialogueRootNode, DialogueTextNode, OptionsNode,
+    },
+    events::RunDialogueEvent,
 };
 
 pub fn setup(assets: Res<AssetServer>, mut html_comps: HtmlComponents) {
@@ -57,4 +61,16 @@ pub fn setup(assets: Res<AssetServer>, mut html_comps: HtmlComponents) {
 
 pub fn fmt_name(name: &str) -> Name {
     Name::new(format!("Yarn Spinner example dialogue view node: {name}"))
+}
+
+pub fn run_dialog(
+    mut commands: Commands,
+    mut run_ev: EventReader<RunDialogueEvent>,
+    project: Res<YarnProject>,
+) {
+    for ev in run_ev.read() {
+        let mut dialogue_runner = project.create_dialogue_runner();
+        dialogue_runner.start_node(ev.0.clone());
+        commands.spawn(dialogue_runner);
+    }
 }

@@ -2,15 +2,12 @@ use bevy::{
     color::palettes::css::WHITE,
     log::{Level, LogPlugin},
     prelude::*,
-    remote::{http::RemoteHttpPlugin, RemotePlugin},
 };
 
 use bevy_codex::{
     prelude::{UiScreensPlugin, UiState},
     resources::CodexSettings,
 };
-use bevy_yarnspinner::prelude::YarnProject;
-use leafwing_manifest::{asset_state::SimpleAssetState, plugin::ManifestPlugin};
 use systems::{move_to_hud, run_dialog, setup, start_load};
 
 pub mod resources;
@@ -26,12 +23,6 @@ fn main() {
                     ..default()
                 })
                 .build(),
-            ManifestPlugin::<SimpleAssetState> {
-                automatically_advance_states: true,
-                _phantom: std::marker::PhantomData,
-            },
-            RemotePlugin::default(),
-            RemoteHttpPlugin::default(),
             UiScreensPlugin {
                 game_settings_folder: "".to_string(),
                 config: CodexSettings::new("dialogue".to_string(), None, WHITE.into()),

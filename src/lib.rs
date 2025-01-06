@@ -5,6 +5,7 @@
 
 use bevy::{prelude::*, window::SystemCursorIcon};
 use bevy_hui::HuiPlugin;
+use bevy_yarnspinner::prelude::YarnSpinnerPlugin;
 use hud::HudPlugin;
 use loading::LoadingPlugin;
 use main_menu::MainMenuPlugin;
@@ -61,6 +62,7 @@ impl Plugin for UiScreensPlugin {
     fn build(&self, app: &mut App) {
         app.insert_resource::<CodexSettings>(self.config.clone())
             .add_plugins((
+                YarnSpinnerPlugin::default(),
                 MainMenuPlugin,
                 PausePlugin,
                 WidgetPlugins,

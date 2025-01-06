@@ -33,6 +33,10 @@ pub struct DialogueViewSystemSet;
 
 impl Plugin for DialogueViewPlugin {
     fn build(&self, app: &mut App) {
+        assert!(
+            app.is_plugin_added::<YarnSpinnerPlugin>(),
+            "YarnSpinnerPlugin must be added before DialogueViewPlugin"
+        );
         embedded_asset!(app, "dialogue_view.html");
         app.add_event::<RunDialogueEvent>()
             .add_event::<DialogueStartEvent>()
@@ -48,7 +52,6 @@ impl Plugin for DialogueViewPlugin {
                 ),
             )
             .add_plugins((
-                YarnSpinnerPlugin::default(),
                 ui_assets_plugin,
                 dialogue_name_plugin,
                 typewriter_plugin,

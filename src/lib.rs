@@ -62,7 +62,7 @@ impl Plugin for UiScreensPlugin {
     fn build(&self, app: &mut App) {
         app.insert_resource::<CodexSettings>(self.config.clone())
             .add_plugins((
-                YarnSpinnerPlugin::default(),
+                YarnSpinnerPlugin::new(),
                 MainMenuPlugin,
                 PausePlugin,
                 WidgetPlugins,

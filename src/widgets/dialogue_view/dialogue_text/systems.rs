@@ -88,7 +88,7 @@ pub fn write_text(
 }
 pub fn show_dialog(mut root_node: Query<&mut Visibility, With<DialogueRootNode>>) {
     if let Ok(mut visibility) = root_node.get_single_mut() {
-        *visibility = Visibility::Inherited;
+        *visibility = Visibility::Visible;
     }
 }
 

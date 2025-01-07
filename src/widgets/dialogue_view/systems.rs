@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use bevy_hui::prelude::{HtmlComponents, TemplateProperties};
+use bevy_hui::prelude::HtmlComponents;
 use bevy_yarnspinner::prelude::YarnProject;
 
 use super::{
@@ -14,11 +14,7 @@ pub fn setup(assets: Res<AssetServer>, mut html_comps: HtmlComponents) {
         "dview",
         assets.load("embedded://bevy_codex/widgets/dialogue_view/dialogue_view.html"),
         |mut cmd| {
-            cmd.insert((
-                DialogueRootNode,
-                Visibility::Hidden,
-                TemplateProperties::default(),
-            ));
+            cmd.insert((DialogueRootNode, Visibility::Hidden));
         },
     );
 

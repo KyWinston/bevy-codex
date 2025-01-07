@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 use components::Hud;
-use systems::open_hud;
+use systems::{open_hud, register_hud};
 
 use crate::UiState;
 
@@ -11,14 +11,15 @@ pub struct HudPlugin;
 
 impl Plugin for HudPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(OnEnter(UiState::Hud), open_hud)
-        .add_systems(
-            OnExit(UiState::Hud),
-            |mut commands: Commands, node: Query<Entity, With<Hud>>| {
-                for node in node.iter() {
-                    commands.entity(node).despawn_recursive();
-                }
-            },
-        );
+        app.add_systems(Startup, register_hud)
+            .add_systems(OnEnter(UiState::Hud), open_hud)
+            .add_systems(
+                OnExit(UiState::Hud),
+                |mut commands: Commands, node: Query<Entity, With<Hud>>| {
+                    for node in node.iter() {
+                        commands.entity(node).despawn_recursive();
+                    }
+                },
+            );
     }
 }

@@ -1,12 +1,14 @@
-<!-- menu.html -->
+<!-- settings.html -->
 <template>
-  <text>Settings</text>
-  <image
-    display="grid"
-    grid_template_columns="(1, auto)"
-    src="Level_base_diffuse.png"
-    width="100%"
-    height="100%"
-  >
-  </image>
+  <node width="100%" height="100%">
+    <node width="100%" height="30%">
+      <text width="30%" font_size="35px" margin="10% 35% 0 60%">Settings</text>
+    </node>
+    <node width="100%" margin="15% 0 0 0">
+      <text font_size="14px" padding="10px">volume</text><slider></slider>
+    </node>
+    <node width="100%" height="100%" margin="40% 0 0 0">
+      <navlink text="Back" action="back" />
+    </node>
+  </node>
 </template>

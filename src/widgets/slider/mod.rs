@@ -1,11 +1,7 @@
-use bevy::prelude::*;
-use bevy_lunex::prelude::*;
-use components::SliderUi;
-use systems::build_slider;
+use bevy::{asset::embedded_asset, prelude::*};
+use bevy_hui_widgets::prelude::HuiSliderWidgetPlugin;
+use systems::{register_slider, update_slider_target_text};
 
-use crate::resources::CodexSettings;
-
-pub mod components;
 pub mod systems;
 
 #[derive(Clone)]
@@ -13,10 +9,9 @@ pub struct SliderPlugin;
 
 impl Plugin for SliderPlugin {
     fn build(&self, app: &mut App) {
-        app.add_plugins(UiGenericPlugin::<SliderUi>::new());
-        if app.world().resource::<CodexSettings>().debug {
-            app.add_plugins(UiDebugPlugin::<SliderUi>::new());
-        }
-        app.add_systems(Update, build_slider.before(UiSystems::Compute));
+        embedded_asset!(app, "slider.html");
+        app.add_plugins(HuiSliderWidgetPlugin)
+            .add_systems(Startup, update_slider_target_text)
+            .add_systems(Update, register_slider);
     }
 }

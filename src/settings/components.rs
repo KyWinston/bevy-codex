@@ -3,7 +3,7 @@ use bevy::prelude::*;
 #[derive(Component)]
 pub struct SettingsPg;
 
-#[derive(Component,Clone)]
+#[derive(Component, Clone)]
 pub struct SettingsPgUi;
 
 #[derive(Component)]
@@ -14,9 +14,6 @@ pub struct RenderPanel;
 
 #[derive(Component)]
 pub struct SettingsPanel;
-
-// #[derive(Component)]
-// pub struct ControllerPanel;
 
 #[derive(Component)]
 pub struct PlayerNumberInput;

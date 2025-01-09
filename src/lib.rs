@@ -13,6 +13,7 @@ use pause::PausePlugin;
 use prelude::*;
 use resources::{CodexSettings, CursorIcons};
 
+use settings::SettingsUiPlugin;
 use splash::SplashReelPlugin;
 use systems::exit;
 use widgets::WidgetPlugins;
@@ -53,6 +54,7 @@ pub mod hud;
 pub mod loading;
 pub mod main_menu;
 pub mod pause;
+pub mod settings;
 pub mod resources;
 pub mod splash;
 pub mod systems;
@@ -65,6 +67,7 @@ impl Plugin for UiScreensPlugin {
                 YarnSpinnerPlugin::new(),
                 MainMenuPlugin,
                 PausePlugin,
+                SettingsUiPlugin,
                 WidgetPlugins,
                 SplashReelPlugin,
                 HudPlugin,

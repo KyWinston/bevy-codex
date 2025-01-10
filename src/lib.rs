@@ -4,7 +4,7 @@
 //! https://github.com/Lommix/bevy_hui
 
 use bevy::{prelude::*, window::SystemCursorIcon};
-use bevy_hui::{prelude::HuiAutoLoadPlugin, HuiPlugin};
+use bevy_hui::HuiPlugin;
 use bevy_yarnspinner::prelude::YarnSpinnerPlugin;
 use hud::HudPlugin;
 use loading::LoadingPlugin;
@@ -73,7 +73,6 @@ impl Plugin for UiScreensPlugin {
                 HudPlugin,
                 HuiPlugin,
                 LoadingPlugin,
-                HuiAutoLoadPlugin::new(&["components"]),
             ))
             .init_state::<SimulationState>()
             .init_state::<UiState>()

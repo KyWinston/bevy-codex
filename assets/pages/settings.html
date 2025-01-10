@@ -18,8 +18,9 @@
           <text font_size="14px" margin="30px 10px">music volume</text>
           <slider />
           <text font_size="14px" margin="30px 10px">network port</text>
-          <node background="#aaaaaa" height="30px">
-            <input />
+
+          <node background="#aaaaaa" height="30px" margin="10px 30px 0 30px">
+            <input on_change="notify_input_change" />
           </node>
           <node height="100px">
             <navlink text="Back" action="back" />

@@ -7,7 +7,12 @@ license = "MIT OR Apache-2.0"
 edition = "2021"
 publish = true
 keywords = ["bevy", "menus", "ui"]
-exclude = ["/examples"]
+exclude = ["assets/**/*", "tools/**/*","examples/**/*", ".github/**/*"]
+
+
+[workspace]
+members = ["./", "tools/ci"]
+
 
 [dependencies]
 serde = { version = "1.0.99", features = ["derive"] }

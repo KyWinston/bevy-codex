@@ -12,11 +12,16 @@
         <panel bgcolor="#ffffff33" alignment="space_around">
           <text width="40%" margin="20px" font_size="35px">Settings</text>
           <text font_size="14px" margin="30px 10px">master volume</text>
-          <slider />
+          <slider
+            target="master_volume"
+            on_change="notify_slider_change"
+          /><text id="master_volume">0.0</text>
           <text font_size="14px" margin="30px 10px">sound volume</text>
-          <slider />
+          <slider target="sound_volume" on_change="notify_slider_change" />
+          <text id="sound_volume">0.0</text>
           <text font_size="14px" margin="30px 10px">music volume</text>
-          <slider />
+          <slider target="music_volume" on_change="notify_slider_change" />
+          <text id="music_volume">0.0</text>
           <node height="100px">
             <navlink text="Back" action="back" />
           </node>

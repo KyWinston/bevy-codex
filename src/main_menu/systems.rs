@@ -31,4 +31,5 @@ pub fn register_menu_actions(mut html_funcs: HtmlFunctions) {
     html_funcs.register("quit_game", |In(_): In<Entity>, mut commands: Commands| {
         commands.spawn(Quit);
     });
+
 }

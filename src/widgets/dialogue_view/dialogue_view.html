@@ -1,15 +1,15 @@
 <template>
-  <node
-    width="90%"
-    height="30%"
-    margin="35% 5% 0 5%"
-    padding="20px"
-    background="#A9BFA8"
-    border_radius="10px"
-  >
-    <dname />
-    <dtext />
-    <dopt />
-    <cbutton />
+  <property name="bgcolor">#A64D79</property>
+  <node>
+    <panel bgcolor="{bgcolor}" alignment="center">
+      <node margin="30px">
+        <dname />
+      </node>
+      <node margin="30px">
+        <dtext />
+      </node>
+      <dopt />
+      <cbutton />
+    </panel>
   </node>
 </template>

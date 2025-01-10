@@ -1,18 +1,24 @@
 <!-- hud.html -->
 <template>
-  <node width="100%" height="100%" display="block">
-    <node height="50px" width="35%">
-      <text margin="10px">Health</text>
-      <statusbar primary="#FF0000"></statusbar>
+  <node width="100vw" height="100vh" flex_direction="columns">
+    <node width="30vw" height="200px" margin="10px" padding="20px">
+      <panel bgcolor="#1A1A1D" alignment="space-between">
+        <node height="50px" width="30vw">
+          <text margin="10px">Health</text>
+          <statusbar primary="#FF0000"></statusbar>
+        </node>
+        <node height="50px" width="30vw">
+          <text margin="10px">Stamina</text>
+          <statusbar primary="#00FF00"></statusbar>
+        </node>
+        <node height="50px" width="30vw">
+          <text margin="10px">Sanity</text>
+          <statusbar primary="#0000FF"></statusbar>
+        </node>
+      </panel>
     </node>
-    <node height="50px" width="35%">
-      <text margin="10px">Stamina</text>
-      <statusbar primary="#00FF00"></statusbar>
+    <node position="absolute" bottom="30px" margin="30px">
+      <dview />
     </node>
-    <node height="50px" width="35%">
-      <text margin="10px">Sanity</text>
-      <statusbar primary="#0000FF"></statusbar>
-    </node>
-    <dview />
   </node>
 </template>

@@ -9,12 +9,15 @@
       width="100%"
       height="100%"
     >
-      <text margin="10% 0 0 20%" font_size="75px">{title}</text>
-      <navlink text="Start Game" action="start_game" />
-      <navlink text="Settings" action="go_to_settings" />
-      <navlink text="Quit" action="quit_game" />
-      >
+      <node width="60%" height="70%" margin="10% 0 0 20%">
+        <panel bgcolor="#00000020">
+          <text margin="10% 0 0 10px" font_size="75px">{title}</text>
+          <navlink text="Start Game" action="start_game" />
+          <navlink text="Settings" action="go_to_settings" />
+          <navlink text="Quit" action="quit_game" />
+        </panel>
+      </node>
     </image>
   </node>
 </template>
-on_press
+

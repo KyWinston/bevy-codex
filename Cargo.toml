@@ -10,10 +10,6 @@ keywords = ["bevy", "menus", "ui"]
 exclude = ["assets/**/*", "tools/**/*","examples/**/*", ".github/**/*"]
 
 
-[workspace]
-members = ["./", "tools/ci"]
-
-
 [dependencies]
 serde = { version = "1.0.99", features = ["derive"] }
 bevy = { version = "0.15.1", default-features = false, features = [
@@ -24,7 +20,6 @@ bevy = { version = "0.15.1", default-features = false, features = [
     "bevy_window",
     "png",
 ] }
-itertools = "0.14"
 bevy_hui = "0.2.1"
 bevy_yarnspinner = { git = "https://github.com/wiggleforlife/YarnSpinner-Rust", branch = "main" }
 unicode-segmentation = "1.12.0"

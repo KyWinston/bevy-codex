@@ -6,6 +6,9 @@ pub struct SettingsPg;
 #[derive(Component, Clone)]
 pub struct SettingsPgUi;
 
+#[derive(Component, Clone)]
+pub struct SettingsCtrl;
+
 #[derive(Component)]
 pub struct ApplyButton;
 

@@ -11,7 +11,7 @@ impl Plugin for SliderPlugin {
     fn build(&self, app: &mut App) {
         embedded_asset!(app, "slider.html");
         app.add_plugins(HuiSliderWidgetPlugin)
-            .add_systems(Startup, update_slider_target_text)
-            .add_systems(Update, register_slider);
+            .add_systems(Update, update_slider_target_text)
+            .add_systems(Startup, register_slider);
     }
 }

@@ -6,3 +6,5 @@ pub fn exit(mut app_exit_event_writer: EventWriter<AppExit>, quit: Query<Entity,
         app_exit_event_writer.send(AppExit::Success);
     }
 }
+
+

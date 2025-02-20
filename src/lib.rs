@@ -6,6 +6,7 @@
 use bevy::{prelude::*, window::SystemCursorIcon};
 use bevy_hui::HuiPlugin;
 use bevy_yarnspinner::prelude::YarnSpinnerPlugin;
+use events::{update_ui_text, UpdateUiTextEvent};
 use hud::HudPlugin;
 use loading::LoadingPlugin;
 use main_menu::MainMenuPlugin;
@@ -50,6 +51,7 @@ pub mod prelude {
 }
 
 pub mod components;
+pub mod events;
 pub mod hud;
 pub mod loading;
 pub mod main_menu;
@@ -63,6 +65,7 @@ pub mod widgets;
 impl Plugin for UiScreensPlugin {
     fn build(&self, app: &mut App) {
         app.insert_resource::<CodexSettings>(self.config.clone())
+        .add_event::<UpdateUiTextEvent>()
             .add_plugins((
                 YarnSpinnerPlugin::new(),
                 MainMenuPlugin,
@@ -77,6 +80,6 @@ impl Plugin for UiScreensPlugin {
             .init_state::<SimulationState>()
             .init_state::<UiState>()
             .insert_resource(CursorIcons(vec![SystemCursorIcon::Default]))
-            .add_systems(Update, exit);
+            .add_systems(Update, (exit, update_ui_text));
     }
 }

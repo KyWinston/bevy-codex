@@ -12,7 +12,7 @@ exclude = ["assets/**/*", "tools/**/*", "examples/**/*", ".github/**/*"]
 
 [dependencies]
 serde = { version = "1.0.99", features = ["derive"] }
-bevy = { version = "0.15.2", default-features = false, features = [
+bevy = { version = "0.15.3", default-features = false, features = [
     "bevy_asset",
     "bevy_state",
     "bevy_text",
@@ -20,13 +20,13 @@ bevy = { version = "0.15.2", default-features = false, features = [
     "bevy_window",
     "png",
 ] }
-bevy_hui = "0.2.1"
+bevy_hui = "0.3.0"
 bevy_yarnspinner = { git = "https://github.com/wiggleforlife/YarnSpinner-Rust", branch = "main" }
 unicode-segmentation = "1.12.0"
 bevy_hui_widgets = "0.1.0"
 
 [dev-dependencies]
-bevy = { version = "0.15.2", default-features = false, features = [
+bevy = { version = "0.15.3", default-features = false, features = [
     "bevy_render",
     "file_watcher",
     "multi_threaded",
@@ -38,7 +38,7 @@ bevy = { version = "0.15.2", default-features = false, features = [
 
 [target.'cfg(target_os = "linux")'.dev-dependencies.bevy]
 features = ["x11", "wayland", "bevy_winit"]
-version = "0.15.2"
+version = "0.15.3"
 default-features = false
 
 

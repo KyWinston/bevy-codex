@@ -65,7 +65,7 @@ pub mod widgets;
 impl Plugin for UiScreensPlugin {
     fn build(&self, app: &mut App) {
         app.insert_resource::<CodexSettings>(self.config.clone())
-        .add_event::<UpdateUiTextEvent>()
+            .add_event::<UpdateUiTextEvent>()
             .add_plugins((
                 YarnSpinnerPlugin::new(),
                 MainMenuPlugin,

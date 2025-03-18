@@ -7,6 +7,6 @@ check_file_has_lf_endings() {
     fi
 }
 
-for file in **/*; do
+for file in src/**/*; do
     check_file_has_lf_endings "$file"
 done

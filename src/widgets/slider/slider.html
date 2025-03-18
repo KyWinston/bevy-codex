@@ -1,21 +1,31 @@
 <template>
+  <property name="label">slider</property>
+  <property name="spacing">50px</property>
+  <property name="panel-img">ui_panel_atlas.png</property>
+  <property name="rack-color">#222</property>
+  <property name="knob-color">#111</property>
+
+  <node>
+    <text>{label}</text>
     <image
-        on_spawn="init_slider"
-        tag:axis="x"
-        image_mode="10px tile(2) tile(2) 16"
-        src="ui_panel_atlas.png"
-        image_region="(32,0)(64,32)"
-        height="20px"
-        width="100%"
-        background="#222"
+      on_spawn="init_slider"
+      tag:axis="x"
+      image_mode="10px tile(2) tile(2) 16"
+      src="{panel-img}"
+      image_region="(32,0)(64,32)"
+      height="20px"
+      margin="{spacing}"
+      width="100%"
+      background="{rack-color}"
     >
-        <button
-            background="#111"
-            pressed:background="#555"
-            position="absolute"
-            width="20px"
-            height="20px"
-            border_radius="20px"
-        ></button>
+      <button
+        background="{knob-color}"
+        pressed:background="#555"
+        position="absolute"
+        width="20px"
+        height="20px"
+        border_radius="20px"
+      ></button>
     </image>
+  </node>
 </template>

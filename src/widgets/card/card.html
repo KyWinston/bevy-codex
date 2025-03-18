@@ -1,0 +1,45 @@
+<template>
+    <property name="title">hello</property>
+    <property name="primary">#000</property>
+    <property name="secondary">#FFF</property>
+
+<node>
+    <button
+        hover:border_color="#FFF"
+        hover:background="#555"
+        hover:padding="5px"
+        delay="0.1"
+        ease="sine_out"
+        id="btn"
+        background="#0000"
+        border="2px"
+        border_color="{primary}"
+        border_radius="2px"
+        hover:border="4px"     
+        height="64px"
+        width="64px"
+    >
+        <image
+            align_self="center"
+            justify_self="center"
+            width="64px"
+            height="64px"
+            height="auto"
+            src="branding/icon.png"
+        />
+        <text
+            align_self="end"
+            font_size="10px"
+            hover:font_color="#0FF"
+            hover:font_size="12px"
+            delay="0.1"
+            watch="btn"
+            font_color="#FFF"
+            justify_self="center"
+            position="absolute"
+        >
+            {title}
+        </text>
+    </button>
+</node>
+</template>

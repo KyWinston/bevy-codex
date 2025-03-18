@@ -1,5 +1,4 @@
-use bevy::{color::palettes::css::WHITE, prelude::*, utils::HashMap, window::SystemCursorIcon};
-use serde::Deserialize;
+use bevy::{color::palettes::css::WHITE, prelude::*, window::SystemCursorIcon};
 
 #[derive(Asset, TypePath, Resource, Clone)]
 pub struct CodexSettings {
@@ -10,11 +9,8 @@ pub struct CodexSettings {
     pub debug: bool,
 }
 
-#[derive(Asset, TypePath, Resource, Clone, Deserialize)]
-pub struct GameSettings {
-    pub audio_settings: HashMap<String, f32>,
-    pub network_port: Option<u32>,
-}
+#[derive(Resource)]
+pub struct GameSettingsFolder(pub String);
 
 impl Default for CodexSettings {
     fn default() -> Self {
@@ -40,5 +36,3 @@ impl CodexSettings {
 
 #[derive(Resource)]
 pub struct CursorIcons(pub Vec<SystemCursorIcon>);
-
-

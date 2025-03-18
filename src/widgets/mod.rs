@@ -1,5 +1,6 @@
 use bevy::{app::PluginGroupBuilder, prelude::*};
 use button::ButtonPlugin;
+use card::CardPlugin;
 use dialogue_view::DialogueViewPlugin;
 use input::InputFieldPlugin;
 use panel::PanelPlugin;
@@ -10,6 +11,7 @@ use status_bar::StatusBarPlugin;
 
 pub mod button;
 // pub mod list;
+pub mod card;
 pub mod input;
 pub mod dialogue_view;
 pub mod panel;
@@ -21,7 +23,7 @@ pub struct WidgetPlugins;
 impl PluginGroup for WidgetPlugins {
     fn build(self) -> PluginGroupBuilder {
         PluginGroupBuilder::start::<Self>()
-            // .add(ListPlugin)
+            .add(CardPlugin)
             .add(InputFieldPlugin)
             .add(PanelPlugin)
             .add(SliderPlugin)

@@ -12,7 +12,8 @@ use loading::LoadingPlugin;
 use main_menu::MainMenuPlugin;
 use pause::PausePlugin;
 use prelude::*;
-use resources::{CodexSettings, CursorIcons};
+
+use resources::{CodexSettings, CursorIcons, GameSettingsFolder};
 
 use settings::SettingsUiPlugin;
 use splash::SplashReelPlugin;
@@ -21,10 +22,15 @@ use widgets::WidgetPlugins;
 
 pub mod prelude {
     use crate::resources::CodexSettings;
-    use bevy::{prelude::Component, reflect::Reflect, state::state::States};
+    use bevy::{
+        prelude::Component,
+        reflect::Reflect,
+        state::state::{StateSet, States, SubStates},
+    };
 
     ///The different sub states for the game when you are on the hud
-    #[derive(Default, States, Debug, Reflect, Hash, Eq, PartialEq, Clone)]
+    #[derive(Default, SubStates, Debug, Reflect, Hash, Eq, PartialEq, Clone)]
+    #[source(UiState = UiState::Hud)]
     pub enum SimulationState {
         #[default]
         Running,
@@ -64,7 +70,11 @@ pub mod widgets;
 
 impl Plugin for UiScreensPlugin {
     fn build(&self, app: &mut App) {
-        app.insert_resource::<CodexSettings>(self.config.clone())
+        let config = self.config.clone();
+        app.insert_resource::<CodexSettings>(config)
+            .insert_resource::<GameSettingsFolder>(GameSettingsFolder(
+                self.game_settings_folder.clone(),
+            ))
             .add_event::<UpdateUiTextEvent>()
             .add_plugins((
                 YarnSpinnerPlugin::new(),
@@ -77,8 +87,8 @@ impl Plugin for UiScreensPlugin {
                 HuiPlugin,
                 LoadingPlugin,
             ))
-            .init_state::<SimulationState>()
             .init_state::<UiState>()
+            .add_sub_state::<SimulationState>()
             .insert_resource(CursorIcons(vec![SystemCursorIcon::Default]))
             .add_systems(Update, (exit, update_ui_text));
     }

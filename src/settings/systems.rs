@@ -34,22 +34,27 @@ fn init_settings(
     setting_handle: Res<SettingsHandle>,
     settings: Res<Assets<GameSettings>>,
     mut cmd: Commands,
-    // mut sliders: Query<&mut Slider>,
     server: Res<AssetServer>,
 ) {
     if let Some(setting) = settings.get(setting_handle.0.id()) {
         cmd.entity(entity).with_children(|cmd| {
-            for (key, _value) in setting.audio_settings.iter() {
-                println!("{:?}", key);
-                let _slider_ent = cmd
-                    .spawn((
-                        HtmlNode(server.load("embedded://bevy_codex/widgets/slider/slider.html")),
+            for (key, _) in setting.audio_settings.iter() {
+                cmd.spawn((
+                    HtmlNode(server.load("embedded://bevy_codex/widgets/slider/slider.html")),
+                    TemplateProperties::default().with("label", key),
+                ));
+            }
+            for section in setting.network_settings.iter() {
+                for (key, _) in section.iter() {
+                    cmd.spawn((
+                        HtmlNode(server.load("embedded://bevy_codex/widgets/input/input.html")),
                         TemplateProperties::default().with("label", key),
-                    ))
-                    .id();
-                // if let Ok(slider) = sliders.get_mut(slider_ent) {
-                //     slider. = value;
-                // }
+                    ));
+                    cmd.spawn((
+                        HtmlNode(server.load("embedded://bevy_codex/widgets/input/input.html")),
+                        TemplateProperties::default().with("label", key),
+                    ));
+                }
             }
         });
     }

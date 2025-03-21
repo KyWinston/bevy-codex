@@ -15,7 +15,7 @@ pub struct SettingsUiPlugin;
 
 impl Plugin for SettingsUiPlugin {
     fn build(&self, app: &mut App) {
-        app.add_plugins(RonAssetPlugin::<GameSettings>::new(&["settings.ron"]))
+        app.add_plugins((RonAssetPlugin::<GameSettings>::new(&["settings.ron"]),))
             .add_systems(Startup, register_settings_actions)
             .add_systems(OnEnter(UiState::Settings), go_to_settings)
             .add_systems(

@@ -1,13 +1,19 @@
 <template>
-  <button
-    on_spawn="init_input"
-    target="text_value"
-    tag:filter="number"
-    background="#222"
-    min_height="40px"
-    padding="5px"
-    active:border_color="#FFF"
-  >
-    <text id="text_value">Placeholder</text>
-  </button>
+  <property name="label">input</property>
+  <property name="index">0</property>
+  <node align_items="center" margin="5px">
+    <text font_size="20px">{label}</text>
+    <button
+      tag:input="{label}"
+      tag:index="{index}"
+      background="#333"
+      on_spawn="add_field"
+      on_press="focus_field"
+      min_height="40px"
+      min_width="400px"
+      padding="5px"
+      margin="5px"
+      active:border_color="#FFF"
+    ></button>
+  </node>
 </template>

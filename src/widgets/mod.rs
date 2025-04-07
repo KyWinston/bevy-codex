@@ -9,16 +9,16 @@ use slider::SliderPlugin;
 // use panel::PanelPlugin;
 use status_bar::StatusBarPlugin;
 
-pub mod button;
+pub(crate) mod button;
 // pub mod list;
-pub mod card;
-pub mod input;
-pub mod dialogue_view;
-pub mod panel;
-pub mod slider;
-pub mod status_bar;
+pub(crate) mod card;
+pub(crate) mod dialogue_view;
+pub(crate) mod input;
+pub(crate) mod panel;
+pub(crate) mod slider;
+pub(crate) mod status_bar;
 
-pub struct WidgetPlugins;
+pub(crate) struct WidgetPlugins;
 
 impl PluginGroup for WidgetPlugins {
     fn build(self) -> PluginGroupBuilder {

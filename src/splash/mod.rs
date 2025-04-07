@@ -6,12 +6,12 @@ use systems::{create_splash, splash_timer};
 
 use crate::{resources::CodexSettings, UiState};
 
-pub mod components;
-pub mod events;
-pub mod resources;
-pub mod systems;
+pub(crate) mod components;
+pub(crate) mod events;
+pub(crate) mod resources;
+pub(crate) mod systems;
 
-pub struct SplashReelPlugin;
+pub(crate) struct SplashReelPlugin;
 impl Plugin for SplashReelPlugin {
     fn build(&self, app: &mut App) {
         let _codex_settings = app.world().resource::<CodexSettings>();

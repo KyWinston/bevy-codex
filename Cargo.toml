@@ -12,7 +12,7 @@ exclude = ["assets/**/*", "tools/**/*", "examples/**/*", ".github/**/*"]
 
 [dependencies]
 serde = { version = "1.0.99", features = ["derive"] }
-bevy = { version = "0.16.0-rc.1", default-features = false, features = [
+bevy = { version = "0.16.0-rc.3", default-features = false, features = [
     "bevy_asset",
     "bevy_state",
     "bevy_text",
@@ -31,7 +31,7 @@ bevy_common_assets = { git = "https://github.com/NiklasEi/bevy_common_assets", b
 bevy_simple_text_input = "0.10.2"
 
 [dev-dependencies]
-bevy = { version = "0.16.0-rc.1", default-features = false, features = [
+bevy = { version = "0.16.0-rc.3", default-features = false, features = [
     "bevy_render",
     "file_watcher",
     "multi_threaded",
@@ -42,7 +42,7 @@ bevy = { version = "0.16.0-rc.1", default-features = false, features = [
 
 [target.'cfg(target_os = "linux")'.dev-dependencies.bevy]
 features = ["x11", "wayland", "bevy_winit"]
-version = "0.16.0-rc.1"
+version = "0.16.0-rc.3"
 default-features = false
 
 

@@ -8,11 +8,11 @@ use super::{
 };
 use crate::UiState;
 
-pub fn go_to_settings(mut commands: Commands, server: Res<AssetServer>) {
+pub(super) fn go_to_settings(mut commands: Commands, server: Res<AssetServer>) {
     commands.spawn((SettingsPg, HtmlNode(server.load("pages/settings.html"))));
 }
 
-pub fn register_settings_actions(
+pub(super) fn register_settings_actions(
     mut html_funcs: HtmlFunctions,
     asset_server: Res<AssetServer>,
     mut commands: Commands,
@@ -60,7 +60,7 @@ fn init_settings(
     }
 }
 
-pub fn update_settings(
+pub(super) fn update_settings(
     mut slider_ev: EventReader<SliderChangedEvent>,
     setting_handle: Res<SettingsHandle>,
     slider: Query<(Entity, &Slider, &TemplateProperties)>,
@@ -80,4 +80,4 @@ pub fn update_settings(
     }
 }
 
-pub fn apply_all_settings(In(_): In<Entity>) {}
+fn apply_all_settings(In(_): In<Entity>) {}

@@ -12,7 +12,7 @@ use status_bar::StatusBarPlugin;
 pub(crate) mod button;
 // pub mod list;
 pub(crate) mod card;
-pub(crate) mod dialogue_view;
+pub mod dialogue_view;
 pub(crate) mod input;
 pub(crate) mod panel;
 pub(crate) mod slider;

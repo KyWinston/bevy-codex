@@ -28,7 +28,7 @@ bevy_common_assets = { version = "0.13.0", default-features = false, features = 
     "ron",
 ] }
 bevy_simple_text_input = "0.11.0"
-lightningcss = "1.0.0-alpha.65"
+# lightningcss = "1.0.0-alpha.65"
 
 [dev-dependencies]
 bevy = { version = "0.16.0", default-features = false, features = [

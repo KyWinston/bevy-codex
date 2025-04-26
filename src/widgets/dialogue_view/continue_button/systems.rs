@@ -32,7 +32,7 @@ pub fn continue_dialogue(
         for mut dialogue_runner in dialogue_runners.iter_mut() {
             if !dialogue_runner.is_waiting_for_option_selection() && dialogue_runner.is_running() {
                 dialogue_runner.continue_in_next_update();
-                *continue_visibility.single_mut() = Visibility::Hidden;
+                *continue_visibility.single_mut().unwrap() = Visibility::Hidden;
             }
         }
     }

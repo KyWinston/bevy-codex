@@ -1,4 +1,4 @@
-use bevy::{prelude::*, utils::hashbrown::HashMap};
+use bevy::{platform::collections::HashMap, prelude::*};
 use bevy_hui::prelude::{HtmlNode, TemplateProperties};
 use bevy_yarnspinner::{
     events::{DialogueCompleteEvent, PresentOptionsEvent},
@@ -19,11 +19,12 @@ pub fn create_options(
     assets: Res<AssetServer>,
     mut options_node: Query<(Entity, &mut Visibility), With<OptionsNode>>,
 ) {
-    let (entity, mut visibility) = options_node.single_mut();
-    *visibility = Visibility::Hidden;
-    if children.iter_descendants(entity).next().is_none() {
-        let mut entity_commands = commands.entity(entity);
-        spawn_options(&mut entity_commands, &option_selection.options, assets);
+    if let Ok((entity, mut visibility)) = options_node.single_mut() {
+        *visibility = Visibility::Hidden;
+        if children.iter_descendants(entity).next().is_none() {
+            let mut entity_commands = commands.entity(entity);
+            spawn_options(&mut entity_commands, &option_selection.options, assets);
+        }
     }
 }
 
@@ -48,8 +49,9 @@ pub fn show_options(
     mut options_node: Query<&mut Visibility, With<OptionsNode>>,
 ) {
     for _event in typewriter_finished_event.read() {
-        let mut visibility = options_node.single_mut();
-        *visibility = Visibility::Inherited;
+        if let Ok(mut visibility) = options_node.single_mut() {
+            *visibility = Visibility::Inherited;
+        }
     }
 }
 
@@ -84,7 +86,7 @@ pub fn select_option(
         }
     }
     if has_selected_id {
-        selected_option_event.send(HasSelectedOptionEvent);
+        selected_option_event.write(HasSelectedOptionEvent);
     }
 }
 
@@ -103,11 +105,12 @@ pub fn despawn_options(
     has_selected_option_event.clear();
     dialogue_complete_event.clear();
     commands.remove_resource::<OptionSelection>();
-    let (entity, mut visibility) = options_node.single_mut();
-    commands.entity(entity).despawn_descendants();
-    *visibility = Visibility::Hidden;
-    for mut text in dialogue_node_text.iter_mut() {
-        *text = Text::default();
+    if let Ok((entity, mut visibility)) = options_node.single_mut() {
+        commands.entity(entity).despawn();
+        *visibility = Visibility::Hidden;
+        for mut text in dialogue_node_text.iter_mut() {
+            *text = Text::default();
+        }
     }
 }
 

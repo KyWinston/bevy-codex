@@ -17,8 +17,9 @@ pub fn show_continue(
 ) {
     for _event in typewriter_finished_event.read() {
         if !typewriter.last_before_options {
-            let mut visibility = visibility.single_mut();
-            *visibility = Visibility::Inherited;
+            if let Ok(mut visibility) = visibility.single_mut() {
+                *visibility = Visibility::Inherited;
+            }
         }
     }
 }
@@ -39,7 +40,7 @@ pub fn send_finished_event(
     if !typewriter.is_finished() {
         *last_finished = false;
     } else if !*last_finished {
-        events.send(TypewriterFinishedEvent);
+        events.write(TypewriterFinishedEvent);
         *last_finished = true;
     }
 }
@@ -52,7 +53,7 @@ pub fn write_text(
     mut speaker_change_events: EventWriter<SpeakerChangeEvent>,
     mut root_visibility: Query<&mut Visibility, With<DialogueRootNode>>,
 ) {
-    if let Ok(child) = children.get_single_mut() {
+    if let Ok(child) = children.single_mut() {
         if let Ok((mut vis, mut text)) = texts.get_mut(child[0]) {
             if typewriter.last_before_options && option_selection.is_none() {
                 *text = default();
@@ -62,12 +63,12 @@ pub fn write_text(
                 return;
             }
             if !typewriter.last_before_options {
-                *root_visibility.single_mut() = Visibility::Inherited;
+                *root_visibility.single_mut().unwrap() = Visibility::Inherited;
             }
             typewriter.update_current_text();
             if typewriter.is_finished() {
                 if let Some(name) = typewriter.character_name.as_deref() {
-                    speaker_change_events.send(SpeakerChangeEvent {
+                    speaker_change_events.write(SpeakerChangeEvent {
                         character_name: name.to_string(),
                         speaking: false,
                     });
@@ -87,7 +88,7 @@ pub fn write_text(
     }
 }
 pub fn show_dialog(mut root_node: Query<&mut Visibility, With<DialogueRootNode>>) {
-    if let Ok(mut visibility) = root_node.get_single_mut() {
+    if let Ok(mut visibility) = root_node.single_mut() {
         *visibility = Visibility::Visible;
     }
 }
@@ -97,7 +98,7 @@ pub fn hide_dialog(
     mut dialogue_complete_events: EventReader<DialogueCompleteEvent>,
 ) {
     if !dialogue_complete_events.is_empty() {
-        *root_visibility.single_mut() = Visibility::Hidden;
+        *root_visibility.single_mut().unwrap() = Visibility::Hidden;
         dialogue_complete_events.clear();
     }
 }
@@ -111,7 +112,7 @@ pub fn present_line(
 ) {
     for event in line_events.read() {
         let name = if let Some(name) = &event.line.character_name() {
-            speaker_change_events.send(SpeakerChangeEvent {
+            speaker_change_events.write(SpeakerChangeEvent {
                 character_name: name.to_string(),
                 speaking: true,
             });
@@ -119,7 +120,7 @@ pub fn present_line(
         } else {
             String::new()
         };
-        if let Ok(child) = name_node.get_single_mut() {
+        if let Ok(child) = name_node.single_mut() {
             if let Ok(mut node) = texts.get_mut(child[0]) {
                 node.0 = name;
                 typewriter.set_line(&event.line);

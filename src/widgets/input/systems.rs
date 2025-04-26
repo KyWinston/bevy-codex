@@ -71,7 +71,7 @@ pub fn register_input(
 
 fn focus(In(entity): In<Entity>, mut text_input_query: Query<(&ChildOf, &mut TextInputInactive)>) {
     for (parent, mut inactive) in &mut text_input_query {
-        if entity == **parent {
+        if entity == parent.parent() {
             inactive.0 = false;
         } else {
             inactive.0 = true;

@@ -69,7 +69,7 @@ pub fn register_input(
     funcs.register("focus_field", focus);
 }
 
-fn focus(In(entity): In<Entity>, mut text_input_query: Query<(&Parent, &mut TextInputInactive)>) {
+fn focus(In(entity): In<Entity>, mut text_input_query: Query<(&ChildOf, &mut TextInputInactive)>) {
     for (parent, mut inactive) in &mut text_input_query {
         if entity == **parent {
             inactive.0 = false;

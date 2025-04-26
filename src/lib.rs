@@ -7,7 +7,6 @@ pub use bevy_hui::prelude::Tags;
 use bevy::{prelude::*, window::SystemCursorIcon};
 use bevy_hui::HuiPlugin;
 use bevy_yarnspinner::prelude::YarnSpinnerPlugin;
-use events::{update_ui_text, UpdateUiTextEvent};
 use hud::HudPlugin;
 use loading::LoadingPlugin;
 use main_menu::MainMenuPlugin;
@@ -88,7 +87,6 @@ impl Plugin for UiScreensPlugin {
             ))
             .init_state::<UiState>()
             .add_sub_state::<SimulationState>()
-            .insert_resource(CursorIcons(vec![SystemCursorIcon::Default]))
-            .add_systems(Update, (exit, update_ui_text));
+            .insert_resource(CursorIcons(vec![SystemCursorIcon::Default]));
     }
 }

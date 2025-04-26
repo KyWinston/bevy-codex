@@ -12,26 +12,26 @@ exclude = ["assets/**/*", "tools/**/*", "examples/**/*", ".github/**/*"]
 
 [dependencies]
 serde = { version = "1.0.99", features = ["derive"] }
-bevy = { version = "0.16.0-rc.3", default-features = false, features = [
+bevy = { version = "0.16.0-rc.5", default-features = false, features = [
     "bevy_asset",
     "bevy_state",
     "bevy_text",
     "bevy_window",
     "png",
 ] }
-bevy_hui = { git = "https://github.com/KyWinston/bevy_hui", branch = "migration-16" }
-# bevy_hui = "0.3.0"
+bevy_hui = "0.4.0"
 bevy_yarnspinner = { git = "https://github.com/wiggleforlife/YarnSpinner-Rust", branch = "main" }
 unicode-segmentation = "1.12.0"
-bevy_hui_widgets = "0.2.0"
+bevy_hui_widgets = "0.3.0"
 # bevy_common_assets = { version = "0.12.0", default-features = false, features = [
 #     "ron",
 # ] }
 bevy_common_assets = { git = "https://github.com/NiklasEi/bevy_common_assets", branch = "main" }
 bevy_simple_text_input = "0.10.2"
+lightningcss = "1.0.0-alpha.65"
 
 [dev-dependencies]
-bevy = { version = "0.16.0-rc.3", default-features = false, features = [
+bevy = { version = "0.16.0-rc.5", default-features = false, features = [
     "bevy_render",
     "file_watcher",
     "multi_threaded",
@@ -42,7 +42,7 @@ bevy = { version = "0.16.0-rc.3", default-features = false, features = [
 
 [target.'cfg(target_os = "linux")'.dev-dependencies.bevy]
 features = ["x11", "wayland", "bevy_winit"]
-version = "0.16.0-rc.3"
+version = "0.16.0-rc.5"
 default-features = false
 
 

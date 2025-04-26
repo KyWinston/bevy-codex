@@ -3,6 +3,7 @@
 //! this crate uses bevy-hui as a means to allow you to use html to customize the pages
 //! https://github.com/Lommix/bevy_hui
 
+pub use bevy_hui::prelude::Tags;
 use bevy::{prelude::*, window::SystemCursorIcon};
 use bevy_hui::HuiPlugin;
 use bevy_yarnspinner::prelude::YarnSpinnerPlugin;
@@ -57,7 +58,6 @@ pub mod prelude {
 }
 
 pub mod components;
-pub mod events;
 pub mod hud;
 pub mod loading;
 pub mod main_menu;
@@ -75,7 +75,6 @@ impl Plugin for UiScreensPlugin {
             .insert_resource::<GameSettingsFolder>(GameSettingsFolder(
                 self.game_settings_folder.clone(),
             ))
-            .add_event::<UpdateUiTextEvent>()
             .add_plugins((
                 YarnSpinnerPlugin::new(),
                 MainMenuPlugin,

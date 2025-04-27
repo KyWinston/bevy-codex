@@ -65,7 +65,7 @@ pub fn open_dialogue(
     project: Res<YarnProject>,
 ) {
     for ev in run_ev.read() {
-        let mut dialogue_runner = project.create_dialogue_runner();
+        let mut dialogue_runner = project.create_dialogue_runner(&mut commands);
         dialogue_runner.start_node(ev.0.clone());
         commands.spawn(dialogue_runner);
     }

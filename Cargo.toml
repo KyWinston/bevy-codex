@@ -21,7 +21,6 @@ bevy = { version = "0.16.0", default-features = false, features = [
 ] }
 bevy_hui = "0.4.0"
 bevy_yarnspinner = "0.5.0"
-# bevy_yarnspinner = { git = "https://github.com/YarnSpinnerTool/YarnSpinner-Rust", branch = "main" }
 unicode-segmentation = "1.12.0"
 bevy_hui_widgets = "0.3.0"
 bevy_common_assets = { version = "0.13.0", default-features = false, features = [

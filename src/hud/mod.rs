@@ -17,7 +17,7 @@ impl Plugin for HudPlugin {
                 OnExit(UiState::Hud),
                 |mut commands: Commands, node: Query<Entity, With<Hud>>| {
                     for node in node.iter() {
-                        commands.entity(node).despawn_recursive();
+                        commands.entity(node).despawn();
                     }
                 },
             );

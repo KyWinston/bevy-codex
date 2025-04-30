@@ -23,7 +23,7 @@ pub fn register_button(
             else {
                 return;
             };
-            clk_ev.send(BtnClickEvent(path));
+            clk_ev.write(BtnClickEvent(path));
         },
     )
 }

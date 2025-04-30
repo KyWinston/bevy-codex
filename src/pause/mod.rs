@@ -16,8 +16,8 @@ impl Plugin for PausePlugin {
             .add_systems(
                 OnExit(SimulationState::Paused),
                 |mut commands: Commands, node: Query<Entity, With<PauseMenu>>| {
-                    if let Ok(node) = node.get_single() {
-                        commands.entity(node).despawn_recursive();
+                    if let Ok(node) = node.single() {
+                        commands.entity(node).despawn();
                     }
                 },
             );

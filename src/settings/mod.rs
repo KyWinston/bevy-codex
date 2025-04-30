@@ -25,8 +25,8 @@ impl Plugin for SettingsUiPlugin {
             .add_systems(
                 OnExit(UiState::Settings),
                 |mut commands: Commands, node: Query<Entity, With<SettingsPg>>| {
-                    if let Ok(node) = node.get_single() {
-                        commands.entity(node).despawn_recursive();
+                    if let Ok(node) = node.single() {
+                        commands.entity(node).despawn();
                     }
                 },
             );

@@ -21,8 +21,8 @@ impl Plugin for SplashReelPlugin {
             .add_systems(
                 OnExit(UiState::Splash),
                 |mut commands: Commands, node: Query<Entity, With<SplashUi>>| {
-                    if let Ok(node) = node.get_single() {
-                        commands.entity(node).despawn_recursive();
+                    if let Ok(node) = node.single() {
+                        commands.entity(node).despawn();
                     }
                 },
             );

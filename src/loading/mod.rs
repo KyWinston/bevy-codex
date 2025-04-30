@@ -16,7 +16,7 @@ impl Plugin for LoadingPlugin {
                 OnExit(UiState::Loading),
                 |mut commands: Commands, node: Query<Entity, With<Loading>>| {
                     for node in node.iter() {
-                        commands.entity(node).despawn_recursive();
+                        commands.entity(node).despawn();
                     }
                 },
             );

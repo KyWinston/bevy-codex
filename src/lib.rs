@@ -17,7 +17,6 @@ use resources::{CodexSettings, CursorIcons, GameSettingsFolder};
 
 use settings::SettingsUiPlugin;
 use splash::SplashReelPlugin;
-use systems::exit;
 use widgets::WidgetPlugins;
 
 pub mod prelude {

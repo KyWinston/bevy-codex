@@ -1,0 +1,62 @@
+@font-face {
+    font-family: "Kenney Future Narrow";
+    src: url("fonts/Kenney Future Narrow.ttf");
+}
+
+
+
+:root {
+    font-family: "Kenney Future Narrow";
+}
+
+:root,
+#hud {
+    display: flex;
+    margin: 30px;
+    width: 100%;
+    height: 100%;
+}
+
+
+#panel {
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    gap: 20px;
+    width: 300px;
+    height: 30%;
+    background-color: rgba(200, 200, 200, 50);
+
+    Node {
+        margin: 10px;
+        align-content: center;
+        flex-direction: row;
+        justify-content: stretch;
+        Text{
+            margin-top: 10px;
+        }
+        &:nth-child(1) #status_bar {
+            background-color: red;
+
+        }
+
+        &:nth-child(2) #status_bar {
+            background-color: green;
+
+        }
+
+        &:nth-child(3) #status_bar {
+            background-color: blue;
+
+        }
+    }
+
+}
+
+
+#status_bar {
+    height: 20px;
+    width: 80%;
+    border-color: white;
+    border-width: 2px;
+}

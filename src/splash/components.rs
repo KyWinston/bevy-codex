@@ -1,7 +1,6 @@
 use bevy::prelude::*;
 use std::time::Duration;
 
-
 // Tag component used to tag entities added on the splash screen
 #[derive(Component, Debug, Default, Clone, PartialEq)]
 pub struct SplashScreen;

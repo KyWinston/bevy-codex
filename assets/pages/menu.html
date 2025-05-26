@@ -1,17 +1,11 @@
 <!-- menu.html -->
 <template>
   <property name="title">My Game</property>
-  <node width="100%" height="100%">
-    <image
-      position="absolute"
-      display="block"
-      src="Level_base_diffuse.png"
-      width="100%"
-      height="100%"
-    >
-      <node width="60%" height="70%" margin="10% 0 0 20%">
-        <panel bgcolor="#00000020">
-          <text margin="10% 0 0 10px" font_size="75px">{title}</text>
+  <node on_spawn="append_styles">
+    <image>
+      <node id="menu">
+        <panel>
+          <text id="menu_title">{title}</text>
           <navlink text="Start Game" action="start_game" />
           <navlink text="Settings" action="go_to_settings" />
           <navlink text="Quit" action="quit_game" />
@@ -20,4 +14,3 @@
     </image>
   </node>
 </template>
-

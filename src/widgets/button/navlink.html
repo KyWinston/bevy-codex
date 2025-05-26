@@ -2,18 +2,15 @@
 <template>
   <property name="text">Click</property>
   <property name="action">greet</property>
-  <property name="primary">rgb(0,0,0)</property>
-  <property name="secondary">rgb(255,255,255)</property>
   <property name="select_snd">thud.wav</property>
   <button
     id="button"
-    background="{primary}"
     border_radius="7px"
     padding="10px"
     margin="20px 30px"
     on_press="{action}"
     tag:select_snd="{select_snd}"
   >
-    <text font_size="20px" font_color="{secondary}"> {text} </text>
+    <text> {text} </text>
   </button>
 </template>

@@ -5,7 +5,7 @@ use crate::resources::LoadTimer;
 
 pub fn run_dialog(key: Res<ButtonInput<KeyCode>>, mut run_ev: EventWriter<RunDialogueEvent>) {
     if key.just_released(KeyCode::KeyP) {
-        run_ev.send(RunDialogueEvent("Hello".to_string()));
+        run_ev.write(RunDialogueEvent("Hello".to_string()));
     }
 }
 

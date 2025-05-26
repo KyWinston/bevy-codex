@@ -3,9 +3,19 @@
 //! this crate uses bevy-hui as a means to allow you to use html to customize the pages
 //! https://github.com/Lommix/bevy_hui
 
+use bevy::{
+    input_focus::{directional_navigation::DirectionalNavigationPlugin, InputDispatchPlugin},
+    prelude::*,
+    window::SystemCursorIcon,
+};
+
+#[cfg(feature = "debug")]
+use bevy_egui::EguiPlugin;
+use bevy_flair::FlairPlugin;
 pub use bevy_hui::prelude::Tags;
-use bevy::{prelude::*, window::SystemCursorIcon};
 use bevy_hui::HuiPlugin;
+#[cfg(feature = "debug")]
+use bevy_inspector_egui::quick::WorldInspectorPlugin;
 use bevy_yarnspinner::prelude::YarnSpinnerPlugin;
 use hud::HudPlugin;
 use loading::LoadingPlugin;
@@ -17,6 +27,7 @@ use resources::{CodexSettings, CursorIcons, GameSettingsFolder};
 
 use settings::SettingsUiPlugin;
 use splash::SplashReelPlugin;
+use systems::{assign_node_ids, clear_default_styles};
 use widgets::WidgetPlugins;
 
 pub mod prelude {
@@ -78,14 +89,24 @@ impl Plugin for UiScreensPlugin {
                 MainMenuPlugin,
                 PausePlugin,
                 SettingsUiPlugin,
+                #[cfg(feature = "debug")]
+                EguiPlugin {
+                    enable_multipass_for_primary_context: true,
+                },
+                #[cfg(feature = "debug")]
+                WorldInspectorPlugin::default(),
                 WidgetPlugins,
                 SplashReelPlugin,
+                InputDispatchPlugin,
+                DirectionalNavigationPlugin,
+                FlairPlugin,
                 HudPlugin,
                 HuiPlugin,
                 LoadingPlugin,
             ))
             .init_state::<UiState>()
             .add_sub_state::<SimulationState>()
+            .add_systems(Update, (assign_node_ids, clear_default_styles))
             .insert_resource(CursorIcons(vec![SystemCursorIcon::Default]));
     }
 }

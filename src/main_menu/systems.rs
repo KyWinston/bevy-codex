@@ -1,5 +1,6 @@
 use bevy::prelude::*;
-use bevy_hui::prelude::{HtmlFunctions, HtmlNode, TemplateProperties};
+use bevy_flair::style::components::NodeStyleSheet;
+use bevy_hui::prelude::{HtmlFunctions, HtmlNode, HtmlStyle, TemplateProperties};
 
 use crate::{components::Quit, resources::CodexSettings, UiState};
 
@@ -14,6 +15,7 @@ pub fn go_to_main(mut commands: Commands, server: Res<AssetServer>, settings: Re
 }
 
 pub fn register_menu_actions(mut html_funcs: HtmlFunctions) {
+    html_funcs.register("append_styles", append_styles);
     html_funcs.register(
         "start_game",
         |In(_): In<Entity>, mut state: ResMut<NextState<UiState>>| {
@@ -31,5 +33,19 @@ pub fn register_menu_actions(mut html_funcs: HtmlFunctions) {
     html_funcs.register("quit_game", |In(_): In<Entity>, mut commands: Commands| {
         commands.spawn(Quit);
     });
+}
 
+pub fn append_styles(
+    In(entity): In<Entity>,
+    mut commands: Commands,
+    nodes: Query<Entity, With<HtmlStyle>>,
+    asset_server: Res<AssetServer>,
+) {
+    for node in nodes.iter() {
+        commands.entity(node).remove::<HtmlStyle>();
+    }
+    commands.entity(entity).insert((
+        Name::new("main_menu"),
+        NodeStyleSheet::new(asset_server.load("pages/menu.css")),
+    ));
 }

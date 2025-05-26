@@ -1,25 +1,21 @@
 <!-- hud.html -->
 <template>
-  <node width="100vw" height="100vh" flex_direction="columns">
-    <node width="30vw" height="200px" margin="10px" padding="20px">
-      <panel bgcolor="#1A1A1D" alignment="space_between">
-        <node height="50px" width="30vw">
-          <text margin="10px">Health</text>
-          <statusbar primary="#FF0000"></statusbar>
+  <node on_spawn="append_hud_styles">
+    <node>
+      <panel>
+        <node>
+          <text>Health</text>
+          <statusbar></statusbar>
         </node>
-        <node height="50px" width="30vw">
-          <text margin="10px">Stamina</text>
-          <statusbar primary="#00FF00"></statusbar>
+        <node>
+          <text>Stamina</text>
+          <statusbar></statusbar>
         </node>
-        <node height="50px" width="30vw">
-          <text margin="10px">Sanity</text>
-          <statusbar primary="#0000FF"></statusbar>
+        <node>
+          <text>Sanity</text>
+          <statusbar></statusbar>
         </node>
       </panel>
-    <card></card>
-    </node>
-    <node position="absolute" bottom="30px" margin="30px">
-      <dview />
     </node>
   </node>
 </template>

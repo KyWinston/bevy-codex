@@ -4,10 +4,7 @@
   <property name="action">greet</property>
   <property name="select_snd">thud.wav</property>
   <button
-    id="button"
-    border_radius="7px"
-    padding="10px"
-    margin="20px 30px"
+    on_spawn="append_navlink_styles"
     on_press="{action}"
     tag:select_snd="{select_snd}"
   >

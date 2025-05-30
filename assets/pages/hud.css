@@ -17,6 +17,12 @@
     height: 100%;
 }
 
+#status_bar {
+    height: 20px;
+    width: 80%;
+    border-color: white;
+    border-width: 2px;
+}
 
 #panel {
     display: flex;
@@ -32,31 +38,10 @@
         align-content: center;
         flex-direction: row;
         justify-content: stretch;
-        Text{
+
+        Text {
             margin-top: 10px;
-        }
-        &:nth-child(1) #status_bar {
-            background-color: red;
-
-        }
-
-        &:nth-child(2) #status_bar {
-            background-color: green;
-
-        }
-
-        &:nth-child(3) #status_bar {
-            background-color: blue;
-
         }
     }
 
-}
-
-
-#status_bar {
-    height: 20px;
-    width: 80%;
-    border-color: white;
-    border-width: 2px;
 }

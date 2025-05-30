@@ -9,6 +9,8 @@ pub struct CardPlugin;
 impl Plugin for CardPlugin {
     fn build(&self, app: &mut App) {
         embedded_asset!(app, "card.html");
-        app.add_systems(Startup, register_card);
+        embedded_asset!(app, "card.css");
+
+        app.add_systems(PreStartup, register_card);
     }
 }

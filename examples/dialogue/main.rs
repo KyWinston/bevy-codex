@@ -1,5 +1,4 @@
 use bevy::{
-    color::palettes::css::WHITE,
     log::{Level, LogPlugin},
     prelude::*,
 };
@@ -25,7 +24,7 @@ fn main() {
                 .build(),
             UiScreensPlugin {
                 game_settings_folder: "".to_string(),
-                config: CodexSettings::new("dialogue".to_string(), None, WHITE.into()),
+                config: CodexSettings::new("dialogue".to_string()),
             },
         ))
         .add_systems(Startup, setup)

@@ -1,0 +1,27 @@
+#navlink{
+     border-radius: 7px;
+     padding: 10px;
+     margin: 20px 30px;
+ }
+
+Button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    background-color: #d68a4c;
+
+    font-size: 20px;
+    color: rgb(20, 20, 21);
+
+    &:focus,
+    &:hover {
+        background-color: #f8c66a;
+    }
+    transition: background-color 0.3s;
+    Text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

@@ -1,0 +1,16 @@
+#card {
+    padding: 20px;
+    Button {
+        display: flex;
+        flex-direction: column;
+
+        Image {
+            width: 90%;
+            height: auto;
+        }
+        border: 2px;
+        border-radius: 2px;
+        box-shadow: 5px 2px;
+        background-color: aqua;
+    }
+}

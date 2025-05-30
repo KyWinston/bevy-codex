@@ -5,8 +5,8 @@ use bevy::prelude::*;
 #[derive(Resource, Deref, DerefMut)]
 pub struct SplashTimer(pub Timer);
 
-#[derive(Default, Clone, Resource)]
-pub struct SplashScreenSkipable(pub bool, pub bool);
+// #[derive(Default, Clone, Resource)]
+// pub struct SplashScreenSkipable(pub bool, pub bool);
 
 // #[derive(Default, Clone, Resource)]
 // pub(crate) struct SplashScreens(pub Vec<SplashScreen>);
